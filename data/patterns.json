@@ -209,12 +209,14 @@
   },
   "vocab_search": {
     "keywords": [
-      "cari arti",
-      "cari vocab",
       "arti dari",
+      "cari vocab",
+      "cari arti",
       "apa arti"
     ],
     "responses": [
+      "Saya akan cari vocabulary tersebut untuk Anda",
+      "Saya akan cari vocabulary tersebut untuk Anda",
       "Saya akan cari vocabulary tersebut untuk Anda"
     ]
   },
@@ -222,10 +224,12 @@
     "keywords": [
       "fetch vocab",
       "sinkron vocab",
-      "download vocab",
-      "update vocab"
+      "update vocab",
+      "download vocab"
     ],
     "responses": [
+      "Saya sedang sinkronisasi vocabulary dari online",
+      "Saya sedang sinkronisasi vocabulary dari online",
       "Saya sedang sinkronisasi vocabulary dari online"
     ]
   },
@@ -236,7 +240,33 @@
       "statistik vocab"
     ],
     "responses": [
+      "Saya akan tunjukkan statistik vocabulary",
+      "Saya akan tunjukkan statistik vocabulary",
       "Saya akan tunjukkan statistik vocabulary"
+    ]
+  },
+  "wiki_search": {
+    "keywords": [
+      "wikipedia",
+      "cari wikipedia",
+      "siapa itu",
+      "bagaimana cara",
+      "apa itu"
+    ],
+    "responses": [
+      "Saya akan cari informasi di Wikipedia untuk Anda",
+      "Saya akan cari informasi di Wikipedia untuk Anda"
+    ]
+  },
+  "wiki_cache": {
+    "keywords": [
+      "wikipedia cache",
+      "cache wiki",
+      "cache wikipedia"
+    ],
+    "responses": [
+      "Saya akan tunjukkan informasi cache Wikipedia",
+      "Saya akan tunjukkan informasi cache Wikipedia"
     ]
   }
 }

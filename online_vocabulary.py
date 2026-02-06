@@ -493,7 +493,7 @@ class IntegrationHelper:
     @staticmethod
     def integrate_with_pattern_matcher(vocab_manager: OnlineVocabularyManager, 
                                       pattern_matcher) -> None:
-        """Integrate vocabulary manager dengan pattern matcher robot"""
+        """Integrate vocabulary manager dengan pattern matcher robot
         
         Args:
             vocab_manager: Instance dari OnlineVocabularyManager

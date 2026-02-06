@@ -1,0 +1,192 @@
+{
+  "hello": {
+    "word": "hello",
+    "definition": "A polite or friendly expression of greeting",
+    "examples": [
+      "Hello, how are you?",
+      "She said hello to everyone"
+    ],
+    "part_of_speech": "interjection",
+    "source": "builtin"
+  },
+  "algorithm": {
+    "word": "algorithm",
+    "definition": "A step-by-step procedure for solving a problem or accomplishing a task",
+    "examples": [
+      "The sorting algorithm arranges data in order",
+      "Machine learning relies on algorithms"
+    ],
+    "part_of_speech": "noun",
+    "source": "builtin"
+  },
+  "programming": {
+    "word": "programming",
+    "definition": "The process of writing computer programs using a programming language",
+    "examples": [
+      "Programming requires logical thinking",
+      "She learned programming in Python"
+    ],
+    "part_of_speech": "noun",
+    "source": "builtin"
+  },
+  "variable": {
+    "word": "variable",
+    "definition": "A symbol or name representing a quantity that can change",
+    "examples": [
+      "In programming, a variable stores a value",
+      "The variable x represents an unknown"
+    ],
+    "part_of_speech": "noun",
+    "source": "builtin"
+  },
+  "function": {
+    "word": "function",
+    "definition": "A set of instructions that performs a specific task",
+    "examples": [
+      "The function calculates the square root",
+      "Each function should do one thing well"
+    ],
+    "part_of_speech": "noun",
+    "source": "builtin"
+  },
+  "computer": {
+    "word": "computer",
+    "definition": "An electronic device for processing data",
+    "examples": [
+      "The computer processed the data quickly",
+      "Modern computers are very powerful"
+    ],
+    "part_of_speech": "noun",
+    "source": "builtin"
+  },
+  "network": {
+    "word": "network",
+    "definition": "A group of interconnected computers or systems",
+    "examples": [
+      "The computer network was down",
+      "Social networks connect millions of people"
+    ],
+    "part_of_speech": "noun",
+    "source": "builtin"
+  },
+  "database": {
+    "word": "database",
+    "definition": "An organized collection of structured data stored electronically",
+    "examples": [
+      "The database contains customer information",
+      "We queried the database for records"
+    ],
+    "part_of_speech": "noun",
+    "source": "builtin"
+  },
+  "server": {
+    "word": "server",
+    "definition": "A computer that provides resources or services to other computers",
+    "examples": [
+      "The server crashed during the update",
+      "Web servers host websites"
+    ],
+    "part_of_speech": "noun",
+    "source": "builtin"
+  },
+  "client": {
+    "word": "client",
+    "definition": "A program or device that accesses a service or resource from a server",
+    "examples": [
+      "The client connected to the server",
+      "Email clients retrieve messages"
+    ],
+    "part_of_speech": "noun",
+    "source": "builtin"
+  },
+  "internet": {
+    "word": "internet",
+    "definition": "A global system of interconnected networks",
+    "examples": [
+      "The internet connects computers worldwide",
+      "I use the internet daily"
+    ],
+    "part_of_speech": "noun",
+    "source": "builtin"
+  },
+  "technology": {
+    "word": "technology",
+    "definition": "Application of scientific knowledge for practical purposes",
+    "examples": [
+      "New technology improves our lives",
+      "Technology is advancing rapidly"
+    ],
+    "part_of_speech": "noun",
+    "source": "builtin"
+  },
+  "data": {
+    "word": "data",
+    "definition": "Information in a form suitable for processing by a computer",
+    "examples": [
+      "The data was analyzed carefully",
+      "Big data analytics reveals patterns"
+    ],
+    "part_of_speech": "noun",
+    "source": "builtin"
+  },
+  "learning": {
+    "word": "learning",
+    "definition": "The process of acquiring knowledge or skills",
+    "examples": [
+      "Machine learning is powerful",
+      "Continuous learning is important"
+    ],
+    "part_of_speech": "noun",
+    "source": "builtin"
+  },
+  "software": {
+    "word": "software",
+    "definition": "Programs and operating systems used by computers",
+    "examples": [
+      "The software was updated yesterday",
+      "I use various software for work"
+    ],
+    "part_of_speech": "noun",
+    "source": "builtin"
+  },
+  "hardware": {
+    "word": "hardware",
+    "definition": "Physical components of a computer",
+    "examples": [
+      "The hardware was upgraded",
+      "Good hardware ensures better performance"
+    ],
+    "part_of_speech": "noun",
+    "source": "builtin"
+  },
+  "development": {
+    "word": "development",
+    "definition": "The process of creating or improving something",
+    "examples": [
+      "Software development requires teamwork",
+      "Development of new features continues"
+    ],
+    "part_of_speech": "noun",
+    "source": "builtin"
+  },
+  "request": {
+    "word": "request",
+    "definition": "An act of asking politely for something",
+    "examples": [
+      "He made a request for help",
+      "The request was approved"
+    ],
+    "part_of_speech": "noun",
+    "source": "builtin"
+  },
+  "world": {
+    "word": "world",
+    "definition": "The earth and all its inhabitants; the sphere of human life",
+    "examples": [
+      "Around the world, people use technology",
+      "The world is changing"
+    ],
+    "part_of_speech": "noun",
+    "source": "builtin"
+  }
+}
