@@ -1,0 +1,71 @@
+{
+  "vocabulary_system": {
+    "enabled": true,
+    "description": "Online Vocabulary System dengan Local Caching"
+  },
+  "online_sources": {
+    "primary": [
+      "https://raw.githubusercontent.com/wisnu4138/id-vocab/main/vocab.json",
+      "https://api.github.com/repos/wisnu4138/id-vocab/contents/vocab.json"
+    ],
+    "fallback": [
+      "https://raw.githubusercontent.com/kata-ai/kamonolingua/main/data/vocab.json"
+    ],
+    "description": "Sumber vocabulary online untuk sinkronisasi"
+  },
+  "cache_settings": {
+    "enabled": true,
+    "directory": "data/vocabulary_cache",
+    "cache_validity_hours": 24,
+    "auto_sync_on_startup": true,
+    "sync_timeout_seconds": 10,
+    "force_sync_on_startup": false,
+    "description": "Pengaturan cache lokal"
+  },
+  "search_settings": {
+    "exact_match_priority": true,
+    "partial_match_enabled": true,
+    "max_results": 10,
+    "case_insensitive": true,
+    "description": "Pengaturan pencarian vocabulary"
+  },
+  "export_settings": {
+    "supported_formats": ["json", "csv", "txt"],
+    "default_format": "json",
+    "include_source_metadata": true,
+    "export_directory": "data/vocabulary_cache",
+    "description": "Pengaturan export vocabulary"
+  },
+  "logging": {
+    "enabled": true,
+    "level": "INFO",
+    "log_file": "data/vocabulary_system.log",
+    "log_sync_operations": true,
+    "description": "Logging untuk operasi vocabulary"
+  },
+  "performance": {
+    "cache_in_memory": true,
+    "lazy_load_vocabulary": false,
+    "index_vocabulary_on_load": true,
+    "description": "Optimasi performa"
+  },
+  "security": {
+    "verify_ssl": true,
+    "timeout_connection": 10,
+    "max_vocabulary_size_mb": 50,
+    "description": "Pengaturan keamanan"
+  },
+  "integration": {
+    "auto_add_to_patterns": false,
+    "pattern_intent_name": "definition_request",
+    "create_dynamic_keywords": false,
+    "description": "Integrasi dengan pattern matching"
+  },
+  "advanced": {
+    "merge_strategy": "keep_both",
+    "conflict_resolution": "online_first",
+    "backup_cache_on_sync": true,
+    "max_history_backups": 5,
+    "description": "Pengaturan advanced"
+  }
+}

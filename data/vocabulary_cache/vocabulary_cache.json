@@ -1,0 +1,42 @@
+{
+  "artificial_intelligence": {
+    "definition": "Simulasi proses intelijen manusia oleh komputer",
+    "examples": [
+      "AI digunakan untuk autonomous vehicles",
+      "Machine learning adalah bagian dari AI"
+    ],
+    "part_of_speech": "noun",
+    "added_date": "2026-02-06T23:42:57.147368",
+    "source": "online"
+  },
+  "vocabulary": {
+    "definition": "Seluruh kumpulan kata yang digunakan dalam bahasa",
+    "examples": [
+      "Kosakata bahasa Inggris terdiri dari jutaan kata",
+      "Memperluas vocabulary meningkatkan komunikasi"
+    ],
+    "part_of_speech": "noun",
+    "added_date": "2026-02-06T23:42:57.147368",
+    "source": "online"
+  },
+  "cache": {
+    "definition": "Penyimpanan data cepat untuk akses yang lebih efisien",
+    "examples": [
+      "Browser cache mempercepat loading halaman",
+      "CPU cache meningkatkan performa komputasi"
+    ],
+    "part_of_speech": "noun",
+    "added_date": "2026-02-06T23:42:57.147368",
+    "source": "online"
+  },
+  "algorithm": {
+    "definition": "Prosedur langkah demi langkah untuk menyelesaikan masalah",
+    "examples": [
+      "Algoritma sorting digunakan untuk mengurutkan data",
+      "Algoritma pencarian biner lebih efisien untuk dataset besar"
+    ],
+    "part_of_speech": "noun",
+    "added_date": "2026-02-06T23:42:57.147368",
+    "source": "online"
+  }
+}

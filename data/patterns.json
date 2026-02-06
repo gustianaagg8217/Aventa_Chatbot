@@ -1,0 +1,242 @@
+{
+  "greeting": {
+    "keywords": [
+      "halo",
+      "hai",
+      "hello",
+      "assalamualaikum",
+      "pagi",
+      "siang",
+      "malam",
+      "selamat pagi",
+      "selamat siang",
+      "selamat malam",
+      "apa kabar"
+    ],
+    "responses": [
+      "Halo! Apa kabar? Nama saya Project Robot 🤖",
+      "Hai! Senang bertemu denganmu!",
+      "Waalaikumassalam! Apa yang bisa saya bantu?",
+      "Helo! Ada yang bisa dibantu?",
+      "Salam! Apa kabar dengan Anda?"
+    ]
+  },
+  "name": {
+    "keywords": [
+      "siapa nama kamu",
+      "nama kamu siapa",
+      "kamu siapa",
+      "namamu",
+      "siapa kamu",
+      "nama robot"
+    ],
+    "responses": [
+      "Nama saya Project Robot, senang berkenalan dengan Anda!",
+      "Saya adalah Project Robot, asisten chatbot offline Anda.",
+      "Project Robot adalah nama saya. Apa nama Anda?",
+      "Aku dipanggil Project Robot! Ada yang bisa dibantu?"
+    ]
+  },
+  "goodbye": {
+    "keywords": [
+      "bye",
+      "goodbye",
+      "sampai jumpa",
+      "dada",
+      "selamat tinggal",
+      "selamat jalan",
+      "dadah",
+      "see you"
+    ],
+    "responses": [
+      "Sampai jumpa lagi! Senang berbincang denganmu 👋",
+      "Bye bye! Jumpa lagi nanti!",
+      "Selamat tinggal! Semoga harimu menyenangkan!",
+      "Dada! Senang berbincang denganmu!",
+      "Sampai bertemu lagi! 👋"
+    ]
+  },
+  "how_are_you": {
+    "keywords": [
+      "apa kabar",
+      "gimana kabar",
+      "bagaimana keadaan",
+      "kondisi kamu",
+      "kabar kamu gimana",
+      "apa kabarnya"
+    ],
+    "responses": [
+      "Kabar saya baik! Terima kasih sudah bertanya 😊",
+      "Saya sangat baik, terimakasih! Bagaimana denganmu?",
+      "Sempurna! Siap membantu apapun kebutuhanmu!",
+      "Baik-baik saja! Semoga kamu juga sehat!",
+      "Excellent! Bagaimana kabar Anda?"
+    ]
+  },
+  "help": {
+    "keywords": [
+      "bantuan",
+      "help",
+      "bisa apa",
+      "apa yang bisa",
+      "fitur apa",
+      "kemampuan kamu",
+      "bagaimana cara"
+    ],
+    "responses": [
+      "Saya bisa diajari percakapan baru! Gunakan perintah 'ajar' untuk melatih saya.",
+      "Aku bisa obrolan santai, dan kamu bisa mengajari saya hal-hal baru!",
+      "Gunakan 'lihat pattern' untuk melihat apa yang sudah aku pelajari, dan 'ajar' untuk mengajari saya yang baru!",
+      "Saya bisa berbincang dan belajar dari Anda! Coba ajarkan saya sesuatu yang baru!"
+    ]
+  },
+  "hobi": {
+    "keywords": [
+      "hobi",
+      "main game",
+      "nonton film",
+      "baca",
+      "menulis",
+      "gaming",
+      "aktivitas favorit",
+      "kesenangan"
+    ],
+    "responses": [
+      "Hobi itu buat kita bahagia! Hobi kamu apa?",
+      "Aku suka dengar cerita tentang hobi orang!",
+      "Hobi yang bermanfaat itu penting untuk perkembangan diri 😊",
+      "Senang mendengar tentang hobi Anda! Apa yang Anda sukai?"
+    ]
+  },
+  "makanan": {
+    "keywords": [
+      "makanan",
+      "makan",
+      "lapar",
+      "kuliner",
+      "resep",
+      "pedas",
+      "lezat",
+      "restoran"
+    ],
+    "responses": [
+      "Aku suka makanan! Apa makanan favorit kamu?",
+      "Makanan adalah kebutuhan penting! Apa yang kamu makan hari ini?",
+      "Lapar ya? Makanan apa yang kamu inginkan?",
+      "Makanan enak membuat hidup lebih berwarna! 😋"
+    ]
+  },
+  "olahraga": {
+    "keywords": [
+      "olahraga",
+      "main bola",
+      "sepak bola",
+      "badminton",
+      "fitness",
+      "gym",
+      "lari",
+      "renang",
+      "sehat"
+    ],
+    "responses": [
+      "Olahraga itu menyehatkan! Olahraga favorit kamu apa?",
+      "Aku suka lihat orang berolahraga! Kamu termasuk atlet?",
+      "Olahraga itu penting untuk kesehatan!",
+      "Kesehatan adalah prioritas! Kamu aktif berolahraga? 💪"
+    ]
+  },
+  "cuaca": {
+    "keywords": [
+      "cuaca",
+      "hujan",
+      "panas",
+      "dingin",
+      "cerah",
+      "awan",
+      "musim",
+      "mendung"
+    ],
+    "responses": [
+      "Cuaca hari ini gimana? Semoga cerah ya!",
+      "Cuaca sangat mempengaruhi mood kita",
+      "Hujan atau cerah, tetap semangat!",
+      "Cuaca yang bagus bikin aktivitas jadi menyenangkan! ☀️"
+    ]
+  },
+  "belajar": {
+    "keywords": [
+      "belajar",
+      "sekolah",
+      "pelajaran",
+      "mata pelajaran",
+      "ujian",
+      "nilai",
+      "siswa",
+      "pendidikan"
+    ],
+    "responses": [
+      "Belajar itu investasi masa depan! Apa yang sedang kamu pelajari?",
+      "Pendidikan sangat penting untuk kesuksesan kita 📚",
+      "Belajar bisa jadi menyenangkan jika kita semangat!",
+      "Apa yang ingin kamu pelajari? Aku bisa membantu!"
+    ]
+  },
+  "Trading": {
+    "keywords": [
+      "Saldo",
+      "Equitas",
+      "Balance",
+      "Meta Trader 4",
+      "Loss",
+      "Margin Level",
+      "MT4",
+      "MT5",
+      "Meta Trader 5",
+      "Profit",
+      "Broker",
+      "Free margin",
+      "Withdraw",
+      "Deposit",
+      "Equity",
+      "Floating loss",
+      "Margin bebas"
+    ],
+    "responses": [
+      "Hari ini Market sangat bagus sekali! Profit berapa hari ini?",
+      "Hari ini market kurang bagus! Hari ini loss berapa?",
+      "Lumayan Profit nih! Sudah waktunya Withdraw dong"
+    ]
+  },
+  "vocab_search": {
+    "keywords": [
+      "cari arti",
+      "cari vocab",
+      "arti dari",
+      "apa arti"
+    ],
+    "responses": [
+      "Saya akan cari vocabulary tersebut untuk Anda"
+    ]
+  },
+  "vocab_sync": {
+    "keywords": [
+      "fetch vocab",
+      "sinkron vocab",
+      "download vocab",
+      "update vocab"
+    ],
+    "responses": [
+      "Saya sedang sinkronisasi vocabulary dari online"
+    ]
+  },
+  "vocab_stats": {
+    "keywords": [
+      "jumlah vocab",
+      "berapa vocab",
+      "statistik vocab"
+    ],
+    "responses": [
+      "Saya akan tunjukkan statistik vocabulary"
+    ]
+  }
+}
