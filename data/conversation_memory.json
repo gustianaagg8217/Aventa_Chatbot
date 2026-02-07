@@ -1,20 +1,5 @@
 [
   {
-    "timestamp": "2026-02-06T23:46:24.252084",
-    "user": "Mau aku kasih nama?",
-    "bot": "Itu menarik! Tapi aku belum tahu cara meresponnya. 🤔"
-  },
-  {
-    "timestamp": "2026-02-06T23:46:37.345279",
-    "user": "jawab saja \"Iya mau\"",
-    "bot": "Maaf, aku masih belajar. Coba ajari saya dengan perintah 'ajar'!"
-  },
-  {
-    "timestamp": "2026-02-07T00:25:39.857725",
-    "user": "ainstein",
-    "bot": "Maaf, aku masih belajar. Coba ajari saya dengan perintah 'ajar'!"
-  },
-  {
     "timestamp": "2026-02-07T00:25:53.546884",
     "user": "Assalamualaikum",
     "bot": "Hai! Senang bertemu denganmu!"
@@ -246,6 +231,21 @@
   },
   {
     "timestamp": "2026-02-07T11:52:25.406158",
+    "user": "Apa itu artificial intelligence?",
+    "bot": "Saya akan cari informasi di Wikipedia untuk Anda"
+  },
+  {
+    "timestamp": "2026-02-07T12:10:09.262424",
+    "user": "Apa itu artificial intelligence?",
+    "bot": "Saya akan cari informasi di Wikipedia untuk Anda"
+  },
+  {
+    "timestamp": "2026-02-07T12:12:47.396579",
+    "user": "Apa itu artificial intelligence?",
+    "bot": "Saya akan cari informasi di Wikipedia untuk Anda"
+  },
+  {
+    "timestamp": "2026-02-07T12:13:10.426909",
     "user": "Apa itu artificial intelligence?",
     "bot": "Saya akan cari informasi di Wikipedia untuk Anda"
   }
