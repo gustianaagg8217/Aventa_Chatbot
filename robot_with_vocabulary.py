@@ -297,9 +297,11 @@ class EnhancedRobotBrain(RobotBrain):
         elif "statistik vocab" in user_input.lower() or "jumlah vocab" in user_input.lower():
             return self._handle_vocab_stats()
         
-        # Check untuk pembelajaran pola percakapan: "Kalau ada yang bilang [X], jawab nya [Y]"
+        # Check untuk pembelajaran pola percakapan dengan quoted strings
+        # Format: 'Kalau ada yang bilang "[TRIGGER]", jawab nya "[RESPONSE]"'
         try:
-            if "kalau ada yang bilang" in lower and "jawab" in lower:
+            if ("kalau ada yang" in lower and ("bilang" in lower or "nanya" in lower) 
+                and "jawab" in lower and '"' in user_input):
                 result = self._learn_response_pattern(user_input)
                 if result:
                     return result
@@ -640,8 +642,9 @@ class EnhancedRobotBrain(RobotBrain):
     
     def _learn_response_pattern(self, user_input: str) -> Optional[str]:
         """
-        Handle pembelajaran pola percakapan
-        Format: "Kalau ada yang bilang [X], jawab nya [Y]"
+        Handle pembelajaran pola percakapan dengan format quoted strings
+        Format: 'Kalau ada yang bilang "[TRIGGER]", jawab nya "[RESPONSE]"'
+        atau: 'Kalau ada yang nanya "[TRIGGER]" jawab nya "[RESPONSE]"'
         
         Args:
             user_input: Input user dengan pola pembelajaran
@@ -651,9 +654,9 @@ class EnhancedRobotBrain(RobotBrain):
         """
         import re
         
-        # Pattern untuk menangkap pola pembelajaran
-        # Menangani variasi: "kalau ada yang bilang X, jawab Y" atau "jawab nya Y"
-        pattern = r"kalau ada yang bilang\s+(.+?),?\s+(?:jawab(?:\s+nya)?)\s+(.+?)$"
+        # Pattern untuk menangkap pola pembelajaran dengan quoted strings
+        # Menangani: "kalau ada yang bilang/nanya" + quoted trigger + "jawab/jawab nya" + quoted response
+        pattern = r'kalau ada yang (?:bilang|nanya)\s+"(.+?)"\s*,?\s+jawab(?:\s+nya)?\s+"(.+?)"'
         
         match = re.search(pattern, user_input.lower(), re.IGNORECASE)
         if not match:
@@ -776,9 +779,60 @@ class EnhancedRobotBrain(RobotBrain):
         if not self.enable_wikipedia:
             return "Fitur Wikipedia tidak diaktifkan."
         
-        print(f"\n🔍 Searching Wikipedia...")
-        answer = self.answerer.answer_question(question)
+        # Extract keywords dari pertanyaan untuk Wikipedia search
+        search_query = self._extract_wiki_search_query(question)
+        
+        print(f"\n🔍 Searching Wikipedia for '{search_query}'...")
+        answer = self.answerer.answer_question(search_query)
         return answer
+    
+    def _extract_wiki_search_query(self, question: str) -> str:
+        """
+        Extract keyword dari pertanyaan untuk Wikipedia search
+        Contoh:
+        - "apa itu intel Processor?" -> "intel processor"
+        - "siapa itu Mahatma Gandhi?" -> "mahatma gandhi"
+        - "bagaimana cara memasak nasi?" -> "memasak nasi"
+        - "apa yang dimaksud dengan algoritma?" -> "algoritma"
+        """
+        import re
+        lower_q = question.lower().strip()
+        
+        result = lower_q
+        
+        # Patterns dengan regex - yang lebih spesifik terlebih dahulu
+        patterns = [
+            r"^apa\s+yang\s+dimaksud\s+dengan\s+(.+)$",      # apa yang dimaksud dengan X
+            r"^apa\s+yang\s+disebut\s+(.+)$",                 # apa yang disebut X
+            r"^dimaksud\s+dengan\s+(.+)$",                    # dimaksud dengan X
+            r"^apa\s+itu\s+(.+)$",                            # apa itu X
+            r"^apa\s+yang\s+(.+)$",                           # apa yang X
+            r"^apa\s+sih\s+(.+)$",                            # apa sih X
+            r"^apa\s+nama\s+(.+)$",                           # apa nama X
+            r"^siapa\s+itu\s+(.+)$",                          # siapa itu X
+            r"^siapa\s+sih\s+(.+)$",                          # siapa sih X
+            r"^siapa\s+nama\s+(.+)$",                         # siapa nama X
+            r"^siapa\s+(.+)$",                                # siapa X
+            r"^bagaimana\s+cara\s+(.+)$",                     # bagaimana cara X
+            r"^bagaimana\s+(.+)$",                            # bagaimana X
+        ]
+        
+        for pattern in patterns:
+            match = re.match(pattern, result)
+            if match:
+                result = match.group(1)
+                break
+        
+        # Remove trailing question mark and punctuation
+        while result and result[-1] in "?!,.;:":
+            result = result[:-1].strip()
+        
+        # If result is empty or too short (< 2 chars), fallback
+        if not result or len(result) < 2:
+            # Just remove common punctuation from original
+            result = lower_q.rstrip("?!,.;:")
+        
+        return result.strip()
     
     def _handle_wiki_cache(self) -> str:
         """Handle tampilan Wikipedia cache stats"""

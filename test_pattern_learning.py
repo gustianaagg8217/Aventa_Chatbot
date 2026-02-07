@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Test script untuk fitur pembelajaran pola percakapan"""
+"""Test script untuk fitur pembelajaran pola percakapan dengan quoted strings"""
 
 from robot_with_vocabulary import EnhancedRobotBrain
 
@@ -12,14 +12,14 @@ robot = EnhancedRobotBrain(
 )
 
 print("=" * 60)
-print("🤖 TEST: PEMBELAJARAN POLA PERCAKAPAN")
+print("🤖 TEST: PEMBELAJARAN POLA PERCAKAPAN (QUOTED FORMAT)")
 print("=" * 60)
 
-# Test cases
+# Test cases dengan quoted strings
 test_inputs = [
-    "Kalau ada yang bilang Assalamualaikum, jawab nya Waalaikumsalam",
-    "Kalau ada yang bilang Halo, jawab nya Halo juga!",
-    "Kalau ada yang bilang Terima kasih, jawab nya Sama-sama",
+    'Kalau ada yang bilang "Assalamualaikum", jawab nya "Waalaikumsalam"',
+    'Kalau ada yang nanya "Ibu Kota Jawa Barat?" jawab nya "Bandung"',
+    'Kalau ada yang bilang "Terima kasih", jawab nya "Sama-sama"',
 ]
 
 for test_input in test_inputs:
@@ -34,7 +34,7 @@ print("=" * 60)
 
 test_triggers = [
     "Assalamualaikum",
-    "Halo",
+    "Ibu Kota Jawa Barat?",
     "Terima kasih",
 ]
 

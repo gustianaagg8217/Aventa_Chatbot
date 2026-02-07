@@ -79,5 +79,17 @@
     "word": "sinkron",
     "definition": "vocab",
     "examples": []
+  },
+  "learned_assalamualaikum": {
+    "source": "learned_pattern",
+    "trigger": "assalamualaikum",
+    "response": "waalaikumsalam",
+    "created_at": "2026-02-07 11:13:11.839817"
+  },
+  "ibu": {
+    "source": "local",
+    "word": "ibu",
+    "definition": "Kalau ada yang nanya \"Ibu kota jawa barat?\" jawab nya \"Bandung\"",
+    "examples": []
   }
 }

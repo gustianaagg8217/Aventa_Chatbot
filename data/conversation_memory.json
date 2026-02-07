@@ -1,25 +1,5 @@
 [
   {
-    "timestamp": "2026-02-06T22:19:20.860647",
-    "user": "Nama kamu adalah Chabot",
-    "bot": "Project Robot adalah nama saya. Apa nama Anda?"
-  },
-  {
-    "timestamp": "2026-02-06T22:19:31.352002",
-    "user": "Nama aku Agus",
-    "bot": "Project Robot adalah nama saya. Apa nama Anda?"
-  },
-  {
-    "timestamp": "2026-02-06T22:19:34.349817",
-    "user": "Agus",
-    "bot": "Maaf, aku masih belajar. Coba ajari saya dengan perintah 'ajar'!"
-  },
-  {
-    "timestamp": "2026-02-06T22:19:47.733993",
-    "user": "Nama kamu?",
-    "bot": "Saya adalah Project Robot, asisten chatbot offline Anda."
-  },
-  {
     "timestamp": "2026-02-06T22:19:54.412586",
     "user": "nama aku?",
     "bot": "Saya adalah Project Robot, asisten chatbot offline Anda."
@@ -248,5 +228,25 @@
     "timestamp": "2026-02-07T11:07:20.075002",
     "user": "Terima kasih",
     "bot": "sama-sama"
+  },
+  {
+    "timestamp": "2026-02-07T11:14:41.212484",
+    "user": "Kalau ada yang nanya Ibu Kota JAwa Barat? jawab nya Bandung",
+    "bot": "Gunakan 'lihat pattern' untuk melihat apa yang sudah aku pelajari, dan 'ajar' untuk mengajari saya yang baru!"
+  },
+  {
+    "timestamp": "2026-02-07T11:15:12.839649",
+    "user": "Kalau ada yang nanya \"Ibu Kota Jawa Barat?\" jawab nya \"Bandung\"",
+    "bot": "Saya bisa diajari percakapan baru! Gunakan perintah 'ajar' untuk melatih saya."
+  },
+  {
+    "timestamp": "2026-02-07T11:16:20.413245",
+    "user": "Produk Intel Processor erbaru apa?",
+    "bot": "Aku belum pernah belajar tentang itu. Mau mengajari saya?"
+  },
+  {
+    "timestamp": "2026-02-07T11:19:39.573996",
+    "user": "Ibu?",
+    "bot": "Itu menarik! Tapi aku belum tahu cara meresponnya. 🤔"
   }
 ]

@@ -286,5 +286,13 @@
     "part_of_speech": null,
     "added_date": "2026-02-07T10:52:06.418565",
     "source": "local"
+  },
+  "ibu": {
+    "word": "ibu",
+    "definition": "Kalau ada yang nanya \"Ibu kota jawa barat?\" jawab nya \"Bandung\"",
+    "examples": [],
+    "part_of_speech": null,
+    "added_date": "2026-02-07T11:19:22.253123",
+    "source": "local"
   }
 }
