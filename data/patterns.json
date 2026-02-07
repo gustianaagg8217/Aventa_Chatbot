@@ -99,12 +99,13 @@
   },
   "vocab_search": {
     "keywords": [
-      "cari arti",
       "apa arti",
-      "arti dari",
-      "cari vocab"
+      "cari vocab",
+      "cari arti",
+      "arti dari"
     ],
     "responses": [
+      "Saya akan cari vocabulary tersebut untuk Anda",
       "Saya akan cari vocabulary tersebut untuk Anda",
       "Saya akan cari vocabulary tersebut untuk Anda",
       "Saya akan cari vocabulary tersebut untuk Anda"
@@ -113,11 +114,12 @@
   "vocab_sync": {
     "keywords": [
       "sinkron vocab",
-      "download vocab",
+      "update vocab",
       "fetch vocab",
-      "update vocab"
+      "download vocab"
     ],
     "responses": [
+      "Saya sedang sinkronisasi vocabulary dari online",
       "Saya sedang sinkronisasi vocabulary dari online",
       "Saya sedang sinkronisasi vocabulary dari online",
       "Saya sedang sinkronisasi vocabulary dari online"
@@ -125,11 +127,12 @@
   },
   "vocab_stats": {
     "keywords": [
-      "berapa vocab",
       "statistik vocab",
+      "berapa vocab",
       "jumlah vocab"
     ],
     "responses": [
+      "Saya akan tunjukkan statistik vocabulary",
       "Saya akan tunjukkan statistik vocabulary",
       "Saya akan tunjukkan statistik vocabulary",
       "Saya akan tunjukkan statistik vocabulary"

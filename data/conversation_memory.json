@@ -1,10 +1,5 @@
 [
   {
-    "timestamp": "2026-02-06T23:46:10.928905",
-    "user": "nama kamu siapa?",
-    "bot": "Saya adalah Project Robot, asisten chatbot offline Anda."
-  },
-  {
     "timestamp": "2026-02-06T23:46:24.252084",
     "user": "Mau aku kasih nama?",
     "bot": "Itu menarik! Tapi aku belum tahu cara meresponnya. 🤔"
@@ -248,5 +243,10 @@
     "timestamp": "2026-02-07T11:45:59.160695",
     "user": "Apa yang membuat kamu tertarik?",
     "bot": "Saya bisa diajari percakapan baru! Gunakan perintah 'ajar' untuk melatih saya."
+  },
+  {
+    "timestamp": "2026-02-07T11:52:25.406158",
+    "user": "Apa itu artificial intelligence?",
+    "bot": "Saya akan cari informasi di Wikipedia untuk Anda"
   }
 ]
