@@ -4,6 +4,7 @@ Improved version with reliable data sources and fallback data
 """
 
 import json
+import difflib
 import os
 from pathlib import Path
 from datetime import datetime, timedelta
@@ -436,6 +437,29 @@ class OnlineVocabularyManager:
             except OSError:
                 pass
         return total_size / (1024 * 1024)
+
+    def suggest_closest(self, word: str, n: int = 3, cutoff: float = 0.6):
+        """Suggest close vocabulary words for a possibly misspelled `word`.
+
+        Looks through both local and online vocab keys.
+        """
+        word_lower = word.lower().strip()
+        candidates = set()
+        try:
+            candidates.update(self.vocabulary.keys())
+        except Exception:
+            pass
+        try:
+            candidates.update(self.online_vocabulary.keys())
+        except Exception:
+            pass
+
+        candidates = [c for c in candidates if isinstance(c, str)]
+        if not candidates:
+            return []
+
+        matches = difflib.get_close_matches(word_lower, candidates, n, cutoff)
+        return matches
     
     def export_vocabulary(self, format: str = "json", output_path: str = None) -> str:
         """
@@ -500,3 +524,11 @@ class IntegrationHelper:
             pattern_matcher: Pattern matcher dari robot
         """
         pattern_matcher.vocab_manager = vocab_manager
+
+
+    def suggest_closest(self, word: str, n: int = 3, cutoff: float = 0.6):
+        """Suggest close vocabulary words for a possibly misspelled `word`.
+
+        Returns a list of candidate words (may be empty).
+        """
+        # Not a method of IntegrationHelper; add to module-level for convenience

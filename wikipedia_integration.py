@@ -1,16 +1,41 @@
 import requests
 import time
 import json
+from pathlib import Path
 
 class WikipediaSearcher:
     def __init__(self, language='en', user_agent=None):
         self.language = language
         self.user_agent = user_agent if user_agent else 'Mozilla/5.0'
-        self.cache = {}
+
+        # cache structure: {'search': {query: data}, 'pages': {title: extract}}
+        self.cache = {'search': {}, 'pages': {}}
+
+        # Persisted cache directory and file
+        self.cache_dir = Path('wiki_cache')
+        try:
+            self.cache_dir.mkdir(exist_ok=True)
+        except Exception:
+            pass
+        self.cache_file = self.cache_dir / 'wiki_cache.json'
+
+        # Load persisted cache if available
+        try:
+            if self.cache_file.exists():
+                with open(self.cache_file, 'r', encoding='utf-8') as f:
+                    data = json.load(f)
+                    if isinstance(data, dict):
+                        # merge with default structure
+                        self.cache.get('search', {}).update(data.get('search', {}))
+                        self.cache.get('pages', {}).update(data.get('pages', {}))
+        except Exception:
+            # ignore load errors
+            pass
 
     def search(self, query):
-        if query in self.cache:
-            return self.cache[query]
+        # Check persisted search cache first
+        if query in self.cache.get('search', {}):
+            return self.cache['search'][query]
         
         headers = {'User-Agent': self.user_agent}
         url = f'https://{self.language}.wikipedia.org/w/api.php'
@@ -24,30 +49,225 @@ class WikipediaSearcher:
         response = requests.get(url, headers=headers, params=params)
         if response.status_code == 200:
             data = response.json()
-            self.cache[query] = data
+            try:
+                self.cache['search'][query] = data
+                # persist cache
+                with open(self.cache_file, 'w', encoding='utf-8') as f:
+                    json.dump(self.cache, f, ensure_ascii=False)
+            except Exception:
+                pass
             return data
         else:
             return {'error': 'Failed to fetch data from Wikipedia'}
+
+    def get_cache_stats(self):
+        """Return simple statistics about the in-memory cache."""
+        try:
+            total_search = len(self.cache.get('search', {}))
+            total_pages = len(self.cache.get('pages', {}))
+            total_cached = total_search + total_pages
+
+            # If cache file exists, use its size for a more accurate on-disk size
+            if self.cache_file.exists():
+                try:
+                    size_bytes = self.cache_file.stat().st_size
+                    size_kb = size_bytes / 1024.0
+                except Exception:
+                    size_kb = 0.0
+                cache_location = str(self.cache_file)
+            else:
+                # Fallback estimate from in-memory serialization
+                try:
+                    size_bytes = len(json.dumps(self.cache).encode('utf-8'))
+                    size_kb = size_bytes / 1024.0
+                except Exception:
+                    size_kb = 0.0
+                cache_location = 'in-memory'
+
+            return {
+                'total_cached_pages': total_cached,
+                'cache_file_size_kb': size_kb,
+                'language': self.language,
+                'cache_location': cache_location
+            }
+        except Exception:
+            return {
+                'total_cached_pages': 0,
+                'cache_file_size_kb': 0.0,
+                'language': getattr(self, 'language', 'unknown'),
+                'cache_location': 'in-memory'
+            }
+
+    def get_page_extract(self, title: str):
+        """Fetch a plain-text extract (intro) for a given page title."""
+        # Check persisted pages cache first
+        try:
+            if title in self.cache.get('pages', {}):
+                return self.cache['pages'][title]
+
+            headers = {'User-Agent': self.user_agent}
+            url = f'https://{self.language}.wikipedia.org/w/api.php'
+            params = {
+                'action': 'query',
+                'prop': 'extracts',
+                'exintro': True,
+                'explaintext': True,
+                'titles': title,
+                'format': 'json'
+            }
+
+            resp = requests.get(url, headers=headers, params=params, timeout=5)
+            if resp.status_code == 200:
+                data = resp.json()
+                pages = data.get('query', {}).get('pages', {})
+                # pages keyed by pageid
+                for pid, p in pages.items():
+                    extract = p.get('extract')
+                    if extract:
+                        # Cache the extract under the title for quick reuse
+                        try:
+                            self.cache['pages'][title] = extract
+                            with open(self.cache_file, 'w', encoding='utf-8') as f:
+                                json.dump(self.cache, f, ensure_ascii=False)
+                        except Exception:
+                            pass
+                        return extract
+            return None
+        except Exception:
+            return None
+
+    def suggest_titles(self, query: str, limit: int = 5):
+        """Use the opensearch API to get title suggestions for a query."""
+        try:
+            headers = {'User-Agent': self.user_agent}
+            url = f'https://{self.language}.wikipedia.org/w/api.php'
+            params = {
+                'action': 'opensearch',
+                'search': query,
+                'limit': limit,
+                'namespace': 0,
+                'format': 'json'
+            }
+            resp = requests.get(url, headers=headers, params=params, timeout=5)
+            if resp.status_code == 200:
+                data = resp.json()
+                # opensearch returns [query, titles[], descriptions[], urls[]]
+                if isinstance(data, list) and len(data) >= 2:
+                    return data[1]
+            return []
+        except Exception:
+            return []
 
 class QuestionAnswerer:
     def __init__(self, searcher):
         self.searcher = searcher
     
     def answer_question(self, question):
-        search_results = self.searcher.search(question)
-        # Process search results to find an answer
-        # For simplicity, we'll return the raw results
-        return search_results
+        """Return a clean, human-readable answer for a question using
+        the searcher. Picks the top search result and returns the
+        page extract (plain text) with a source link.
+        """
+        try:
+            search_results = self.searcher.search(question)
+
+            # If API returned a search list, use the first hit
+            if isinstance(search_results, dict) and 'query' in search_results:
+                hits = search_results.get('query', {}).get('search', [])
+                if len(hits) > 0:
+                    title = hits[0].get('title')
+                    summary = self.searcher.get_page_extract(title)
+                    if summary:
+                        # Truncate long summaries to a reasonable length
+                        max_len = 1200
+                        short = summary.strip()
+                        if len(short) > max_len:
+                            short = short[:max_len].rsplit('.', 1)[0] + '.'
+
+                        source_url = f"https://{self.searcher.language}.wikipedia.org/wiki/{title.replace(' ', '_')}"
+                        return f"📚 {title}\n\n{short}\n\nSumber: {source_url}"
+
+            # Fallback: if search returned a snippet-like structure, try to show concise info
+            if isinstance(search_results, dict) and 'search' in search_results:
+                snippets = []
+                for s in search_results.get('search', [])[:3]:
+                    snippets.append(f"- {s.get('title')}: {s.get('snippet')}")
+                return "Hasil pencarian:\n" + "\n".join(snippets)
+
+            # If nothing useful found, try opensearch suggestions
+            suggestions = self.searcher.suggest_titles(question, limit=3)
+            if suggestions:
+                # Try first suggestion for a short extract
+                candidate = suggestions[0]
+                extract = self.searcher.get_page_extract(candidate)
+                if extract:
+                    short = extract.strip()
+                    if len(short) > 1000:
+                        short = short[:1000].rsplit('.', 1)[0] + '.'
+                    source_url = f"https://{self.searcher.language}.wikipedia.org/wiki/{candidate.replace(' ', '_')}"
+                    return f"Mungkin maksud: {candidate}\n\n{short}\n\nSumber: {source_url}"
+                else:
+                    # Just list suggestions
+                    items = '\n'.join([f"- {s}" for s in suggestions])
+                    return f"Saya tidak menemukan hasil langsung. Mungkin maksud: \n{items}"
+
+            # Last-resort: return stringified result
+            return str(search_results)
+
+        except Exception as e:
+            return f"Maaf, terjadi kesalahan saat mencari: {e}"
 
 class KnowledgeBase:
-    def __init__(self):
+    def __init__(self, vocab_manager=None, wiki_searcher=None):
+        """Simple knowledge base that can optionally integrate
+        an OnlineVocabularyManager and a WikipediaSearcher.
+
+        Args:
+            vocab_manager: Optional OnlineVocabularyManager instance
+            wiki_searcher: Optional WikipediaSearcher instance
+        """
         self.knowledge = {}
+        self.vocab_manager = vocab_manager
+        self.wiki_searcher = wiki_searcher
+
+        # Preload vocabulary entries into knowledge for quick lookup
+        try:
+            if self.vocab_manager is not None:
+                # vocab_manager stores words keyed by lowercase
+                for key, data in getattr(self.vocab_manager, 'vocabulary', {}).items():
+                    self.knowledge[key] = {
+                        'source': data.get('source', 'local'),
+                        'word': data.get('word', key),
+                        'definition': data.get('definition'),
+                        'examples': data.get('examples', []),
+                        'part_of_speech': data.get('part_of_speech')
+                    }
+        except Exception:
+            # Be tolerant to any unexpected structure in vocab_manager
+            pass
 
     def add_knowledge(self, topic, data):
         self.knowledge[topic] = data
 
     def get_knowledge(self, topic):
-        return self.knowledge.get(topic, 'No knowledge available on that topic.')
+        key = topic.lower().strip()
+        if key in self.knowledge:
+            return self.knowledge[key]
+
+        # If not found locally, try wikipedia_searcher if available
+        if self.wiki_searcher is not None:
+            try:
+                wiki_result = self.wiki_searcher.search(topic)
+                if wiki_result:
+                    # Cache into knowledge for future
+                    self.knowledge[key] = {
+                        'source': 'wikipedia',
+                        'data': wiki_result
+                    }
+                    return self.knowledge[key]
+            except Exception:
+                pass
+
+        return 'No knowledge available on that topic.'
 
 # Example usage
 if __name__ == '__main__':

@@ -95,10 +95,21 @@ class EnhancedRobotBrain(RobotBrain):
         
         # Check untuk perintah Wikipedia
         if self.enable_wikipedia:
-            if "cache wikipedia" in user_input.lower() or "wikipedia cache" in user_input.lower():
+            lower = user_input.lower()
+            if "cache wikipedia" in lower or "wikipedia cache" in lower:
                 return self._handle_wiki_cache()
-            elif "apa itu" in user_input.lower() or "siapa itu" in user_input.lower() or \
-                 "bagaimana" in user_input.lower() and "?" in user_input:
+
+            # Detect wiki-style questions more robustly. Match phrases like:
+            # 'apa itu ...', 'siapa itu ...', 'siapa ...', 'bagaimana cara ...' or 'bagaimana ...?'
+            if (
+                lower.startswith("apa itu") or
+                lower.startswith("siapa itu") or
+                lower.startswith("siapa ") or
+                lower.startswith("bagaimana cara") or
+                (lower.startswith("bagaimana") and "?" in user_input) or
+                "apa itu" in lower or
+                "siapa itu" in lower
+            ):
                 return self._handle_wiki_search(user_input)
         
         # Check untuk perintah vocab khusus
@@ -136,6 +147,30 @@ class EnhancedRobotBrain(RobotBrain):
         results = self.vocab_manager.search_vocabulary(search_term, limit=5)
         
         if not results:
+            # Try fuzzy suggestions from vocab manager
+            try:
+                suggestions = self.vocab_manager.suggest_closest(search_term, n=3, cutoff=0.6)
+            except Exception:
+                suggestions = []
+
+            if suggestions:
+                # If one strong suggestion, show it and its definition if available
+                if len(suggestions) == 1:
+                    s = suggestions[0]
+                    info = self.vocab_manager.vocabulary.get(s) or self.vocab_manager.online_vocabulary.get(s)
+                    if info:
+                        resp = f"Maaf, tidak menemukan '{search_term}'. Mungkin maksud '{info.get('word', s)}'?\n\n"
+                        resp += f"🔤 {info.get('word', s).upper()}\n"
+                        resp += f"   Definition: {info.get('definition', 'N/A')}\n"
+                        if info.get('examples'):
+                            resp += f"   Examples:\n"
+                            for ex in info.get('examples', [])[:2]:
+                                resp += f"      • {ex}\n"
+                        return resp
+                # Multiple suggestions: list them as possible corrections
+                items = '\n'.join([f"- {s}" for s in suggestions])
+                return f"Maaf, tidak menemukan '{search_term}'. Mungkin maksud salah satu dari:\n{items}\n\nCoba: 'cari arti [kata]'"
+
             return f"Maaf, saya tidak menemukan '{search_term}' di vocabulary saya. Mungkin kamu bisa mengajari saya?"
         
         response = f"📚 Hasil pencarian untuk '{search_term}':\n"

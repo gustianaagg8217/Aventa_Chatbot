@@ -208,5 +208,30 @@
     "timestamp": "2026-02-07T00:26:07.134051",
     "user": "harusnya jawab Waalaikumsalam",
     "bot": "Hmm, aku belum paham maksudmu. Bisa jelaskan lebih lanjut?"
+  },
+  {
+    "timestamp": "2026-02-07T08:11:29.928604",
+    "user": "siapa Albert Einstein?",
+    "bot": "Nama saya Project Robot, senang berkenalan dengan Anda!"
+  },
+  {
+    "timestamp": "2026-02-07T08:14:09.151950",
+    "user": "siapa Albert Einstein?",
+    "bot": "Project Robot adalah nama saya. Apa nama Anda?"
+  },
+  {
+    "timestamp": "2026-02-07T08:20:30.936767",
+    "user": "siapa albert einstein?",
+    "bot": "Aku dipanggil Project Robot! Ada yang bisa dibantu?"
+  },
+  {
+    "timestamp": "2026-02-07T08:38:56.057937",
+    "user": "Siapa Albert Einstein?",
+    "bot": "Saya adalah Project Robot, asisten chatbot offline Anda."
+  },
+  {
+    "timestamp": "2026-02-07T08:42:35.338628",
+    "user": "Nichola Tesla",
+    "bot": "Maaf, aku masih belajar. Coba ajari saya dengan perintah 'ajar'!"
   }
 ]

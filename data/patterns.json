@@ -209,12 +209,23 @@
   },
   "vocab_search": {
     "keywords": [
-      "arti dari",
       "cari vocab",
+      "apa arti",
       "cari arti",
-      "apa arti"
+      "arti dari"
     ],
     "responses": [
+      "Saya akan cari vocabulary tersebut untuk Anda",
+      "Saya akan cari vocabulary tersebut untuk Anda",
+      "Saya akan cari vocabulary tersebut untuk Anda",
+      "Saya akan cari vocabulary tersebut untuk Anda",
+      "Saya akan cari vocabulary tersebut untuk Anda",
+      "Saya akan cari vocabulary tersebut untuk Anda",
+      "Saya akan cari vocabulary tersebut untuk Anda",
+      "Saya akan cari vocabulary tersebut untuk Anda",
+      "Saya akan cari vocabulary tersebut untuk Anda",
+      "Saya akan cari vocabulary tersebut untuk Anda",
+      "Saya akan cari vocabulary tersebut untuk Anda",
       "Saya akan cari vocabulary tersebut untuk Anda",
       "Saya akan cari vocabulary tersebut untuk Anda",
       "Saya akan cari vocabulary tersebut untuk Anda"
@@ -222,12 +233,23 @@
   },
   "vocab_sync": {
     "keywords": [
-      "fetch vocab",
       "sinkron vocab",
-      "update vocab",
-      "download vocab"
+      "fetch vocab",
+      "download vocab",
+      "update vocab"
     ],
     "responses": [
+      "Saya sedang sinkronisasi vocabulary dari online",
+      "Saya sedang sinkronisasi vocabulary dari online",
+      "Saya sedang sinkronisasi vocabulary dari online",
+      "Saya sedang sinkronisasi vocabulary dari online",
+      "Saya sedang sinkronisasi vocabulary dari online",
+      "Saya sedang sinkronisasi vocabulary dari online",
+      "Saya sedang sinkronisasi vocabulary dari online",
+      "Saya sedang sinkronisasi vocabulary dari online",
+      "Saya sedang sinkronisasi vocabulary dari online",
+      "Saya sedang sinkronisasi vocabulary dari online",
+      "Saya sedang sinkronisasi vocabulary dari online",
       "Saya sedang sinkronisasi vocabulary dari online",
       "Saya sedang sinkronisasi vocabulary dari online",
       "Saya sedang sinkronisasi vocabulary dari online"
@@ -235,11 +257,22 @@
   },
   "vocab_stats": {
     "keywords": [
-      "jumlah vocab",
       "berapa vocab",
+      "jumlah vocab",
       "statistik vocab"
     ],
     "responses": [
+      "Saya akan tunjukkan statistik vocabulary",
+      "Saya akan tunjukkan statistik vocabulary",
+      "Saya akan tunjukkan statistik vocabulary",
+      "Saya akan tunjukkan statistik vocabulary",
+      "Saya akan tunjukkan statistik vocabulary",
+      "Saya akan tunjukkan statistik vocabulary",
+      "Saya akan tunjukkan statistik vocabulary",
+      "Saya akan tunjukkan statistik vocabulary",
+      "Saya akan tunjukkan statistik vocabulary",
+      "Saya akan tunjukkan statistik vocabulary",
+      "Saya akan tunjukkan statistik vocabulary",
       "Saya akan tunjukkan statistik vocabulary",
       "Saya akan tunjukkan statistik vocabulary",
       "Saya akan tunjukkan statistik vocabulary"
@@ -247,13 +280,24 @@
   },
   "wiki_search": {
     "keywords": [
-      "wikipedia",
+      "apa itu",
       "cari wikipedia",
-      "siapa itu",
+      "wikipedia",
       "bagaimana cara",
-      "apa itu"
+      "siapa itu"
     ],
     "responses": [
+      "Saya akan cari informasi di Wikipedia untuk Anda",
+      "Saya akan cari informasi di Wikipedia untuk Anda",
+      "Saya akan cari informasi di Wikipedia untuk Anda",
+      "Saya akan cari informasi di Wikipedia untuk Anda",
+      "Saya akan cari informasi di Wikipedia untuk Anda",
+      "Saya akan cari informasi di Wikipedia untuk Anda",
+      "Saya akan cari informasi di Wikipedia untuk Anda",
+      "Saya akan cari informasi di Wikipedia untuk Anda",
+      "Saya akan cari informasi di Wikipedia untuk Anda",
+      "Saya akan cari informasi di Wikipedia untuk Anda",
+      "Saya akan cari informasi di Wikipedia untuk Anda",
       "Saya akan cari informasi di Wikipedia untuk Anda",
       "Saya akan cari informasi di Wikipedia untuk Anda"
     ]
@@ -265,6 +309,17 @@
       "cache wikipedia"
     ],
     "responses": [
+      "Saya akan tunjukkan informasi cache Wikipedia",
+      "Saya akan tunjukkan informasi cache Wikipedia",
+      "Saya akan tunjukkan informasi cache Wikipedia",
+      "Saya akan tunjukkan informasi cache Wikipedia",
+      "Saya akan tunjukkan informasi cache Wikipedia",
+      "Saya akan tunjukkan informasi cache Wikipedia",
+      "Saya akan tunjukkan informasi cache Wikipedia",
+      "Saya akan tunjukkan informasi cache Wikipedia",
+      "Saya akan tunjukkan informasi cache Wikipedia",
+      "Saya akan tunjukkan informasi cache Wikipedia",
+      "Saya akan tunjukkan informasi cache Wikipedia",
       "Saya akan tunjukkan informasi cache Wikipedia",
       "Saya akan tunjukkan informasi cache Wikipedia"
     ]
