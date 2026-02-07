@@ -278,5 +278,13 @@
     "part_of_speech": null,
     "added_date": "2026-02-07T10:00:55.781104",
     "source": "local"
+  },
+  "sinkron": {
+    "word": "sinkron",
+    "definition": "vocab",
+    "examples": [],
+    "part_of_speech": null,
+    "added_date": "2026-02-07T10:52:06.418565",
+    "source": "local"
   }
 }

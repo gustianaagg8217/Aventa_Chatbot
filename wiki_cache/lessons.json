@@ -73,5 +73,11 @@
     "word": "cari",
     "definition": "mencari",
     "examples": []
+  },
+  "sinkron": {
+    "source": "local",
+    "word": "sinkron",
+    "definition": "vocab",
+    "examples": []
   }
 }

@@ -1,15 +1,5 @@
 [
   {
-    "timestamp": "2026-02-06T22:17:51.166532",
-    "user": "Kamu mau tanya apa?",
-    "bot": "Aku dipanggil Project Robot! Ada yang bisa dibantu?"
-  },
-  {
-    "timestamp": "2026-02-06T22:18:57.678074",
-    "user": "Kamu akan aku kasih nama",
-    "bot": "Saya adalah Project Robot, asisten chatbot offline Anda."
-  },
-  {
     "timestamp": "2026-02-06T22:19:20.860647",
     "user": "Nama kamu adalah Chabot",
     "bot": "Project Robot adalah nama saya. Apa nama Anda?"
@@ -248,5 +238,15 @@
     "timestamp": "2026-02-07T09:49:38.819386",
     "user": "masukan ke dalam pelajaran",
     "bot": "Belajar itu investasi masa depan! Apa yang sedang kamu pelajari?"
+  },
+  {
+    "timestamp": "2026-02-07T11:06:38.504713",
+    "user": "Terima kasih",
+    "bot": "nya sama-sama"
+  },
+  {
+    "timestamp": "2026-02-07T11:07:20.075002",
+    "user": "Terima kasih",
+    "bot": "sama-sama"
   }
 ]

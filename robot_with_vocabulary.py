@@ -6,6 +6,8 @@ from robot_core import RobotBrain
 from online_vocabulary import OnlineVocabularyManager, IntegrationHelper
 from wikipedia_integration import WikipediaSearcher, QuestionAnswerer, KnowledgeBase
 from pathlib import Path
+from datetime import datetime
+from typing import Optional
 
 
 class EnhancedRobotBrain(RobotBrain):
@@ -165,6 +167,14 @@ class EnhancedRobotBrain(RobotBrain):
             else:
                 return "Saya belum tahu nama Anda. Kamu bisa bilang 'Nama aku Agus' untuk memperkenalkan diri."
 
+        # Check learned patterns SEBELUM greeting check untuk prioritas
+        try:
+            learned_response = self._check_learned_patterns(user_input)
+            if learned_response:
+                return learned_response
+        except Exception:
+            pass
+
         # Personalize simple greetings if we know the user's name
         greetings = ("halo", "hai", "hei", "pagi", "siang", "malam")
         if any(lower.startswith(g) or f" {g} " in f" {lower} " for g in greetings):
@@ -286,6 +296,15 @@ class EnhancedRobotBrain(RobotBrain):
         
         elif "statistik vocab" in user_input.lower() or "jumlah vocab" in user_input.lower():
             return self._handle_vocab_stats()
+        
+        # Check untuk pembelajaran pola percakapan: "Kalau ada yang bilang [X], jawab nya [Y]"
+        try:
+            if "kalau ada yang bilang" in lower and "jawab" in lower:
+                result = self._learn_response_pattern(user_input)
+                if result:
+                    return result
+        except Exception:
+            pass
         
         # Default process seperti sebelumnya
         return super().process_input(user_input)
@@ -591,6 +610,95 @@ class EnhancedRobotBrain(RobotBrain):
         except Exception:
             return "Gagal memproses perintah penambahan informasi. Gunakan: 'tambahkan informasi ini ke Forex'"
     
+    def _check_learned_patterns(self, user_input: str) -> Optional[str]:
+        """
+        Check apakah user input cocok dengan learned patterns
+        
+        Args:
+            user_input: Input user
+            
+        Returns:
+            Response dari learned pattern atau None jika tidak cocok
+        """
+        try:
+            # Iterate through patterns untuk cari yang prefix 'learned_'
+            for intent, pattern_data in self.pattern_matcher.patterns.items():
+                if intent.startswith('learned_'):
+                    # Check setiap keyword di pattern
+                    for keyword in pattern_data.get('keywords', []):
+                        if keyword.lower() == user_input.lower():
+                            # Found exact match, return response
+                            responses = pattern_data.get('responses', [])
+                            if responses:
+                                import random
+                                return random.choice(responses)
+                            break
+        except Exception:
+            pass
+        
+        return None
+    
+    def _learn_response_pattern(self, user_input: str) -> Optional[str]:
+        """
+        Handle pembelajaran pola percakapan
+        Format: "Kalau ada yang bilang [X], jawab nya [Y]"
+        
+        Args:
+            user_input: Input user dengan pola pembelajaran
+            
+        Returns:
+            Status pesan pembelajaran atau None jika pattern tidak cocok
+        """
+        import re
+        
+        # Pattern untuk menangkap pola pembelajaran
+        # Menangani variasi: "kalau ada yang bilang X, jawab Y" atau "jawab nya Y"
+        pattern = r"kalau ada yang bilang\s+(.+?),?\s+(?:jawab(?:\s+nya)?)\s+(.+?)$"
+        
+        match = re.search(pattern, user_input.lower(), re.IGNORECASE)
+        if not match:
+            return None
+        
+        try:
+            trigger_phrase = match.group(1).strip()
+            response_phrase = match.group(2).strip()
+            
+            if not trigger_phrase or not response_phrase:
+                return None
+            
+            # Generate intent name dari trigger phrase
+            intent_name = f"learned_{trigger_phrase.replace(' ', '_')[:20]}"
+            
+            # Tambahkan pattern ke pattern matcher
+            try:
+                self.pattern_matcher.add_pattern(
+                    intent_name,
+                    [trigger_phrase],
+                    [response_phrase]
+                )
+                
+                # Juga simpan ke knowledge base jika tersedia
+                if self.knowledge_base:
+                    self.knowledge_base.add_knowledge(
+                        intent_name,
+                        {
+                            'source': 'learned_pattern',
+                            'trigger': trigger_phrase,
+                            'response': response_phrase,
+                            'created_at': str(datetime.now())
+                        }
+                    )
+                
+                return f"✓ Pola pembelajaran berhasil ditambahkan!\n" \
+                       f"Trigger: '{trigger_phrase}'\n" \
+                       f"Response: '{response_phrase}'"
+            
+            except Exception as e:
+                return f"⚠ Gagal menyimpan pola: {e}"
+        
+        except Exception as e:
+            return None
+    
     def _handle_vocab_sync(self) -> str:
         """Handle sinkronisasi vocabulary online"""
         if not self.vocab_manager:
@@ -604,7 +712,8 @@ class EnhancedRobotBrain(RobotBrain):
             return f"✓ Vocabulary berhasil diperbarui!\n" \
                    f"📊 Total: {stats['total_vocabulary']} kata\n" \
                    f"   Online: {stats['online_vocabulary']}\n" \
-                   f"   Local: {stats['local_vocabulary']}"
+                   f"   Local: {stats['local_vocabulary']}\n" \
+                   f"   Last Sync: {stats['last_updated']}"
         else:
             return "⚠ Tidak bisa sinkronisasi online, menggunakan cache lokal"
     

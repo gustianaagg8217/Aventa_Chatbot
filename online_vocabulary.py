@@ -399,13 +399,22 @@ class OnlineVocabularyManager:
         ]
         
         synced_count = 0
+        new_count = 0
         
         for word in popular_words:
+            word_lower = word.lower().strip()
+            was_cached = word_lower in self.online_vocabulary
+            
             try:
                 result = self.fetch_from_api(word)
                 if result:
                     synced_count += 1
-                    print(f"  ✓ '{word}' - synced")
+                    # Hitung hanya yang benar-benar baru (belum pernah di-cache)
+                    if not was_cached:
+                        new_count += 1
+                        print(f"  ✓ '{word}' - NEW from API")
+                    else:
+                        print(f"  ✓ '{word}' - updated from cache")
                 time.sleep(0.1)  # Rate limiting
             except Exception:
                 pass
@@ -413,7 +422,7 @@ class OnlineVocabularyManager:
         self.last_sync = datetime.now().isoformat()
         self._save_sync_info()
         
-        print(f"\n✓ Sync selesai: {synced_count} baru dari API")
+        print(f"\n✓ Sync selesai: {new_count} baru dari API, {synced_count - new_count} dari cache")
         return True
     
     def get_vocabulary_stats(self) -> Dict:
