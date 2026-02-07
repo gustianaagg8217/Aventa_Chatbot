@@ -1,55 +1,5 @@
 [
   {
-    "timestamp": "2026-02-06T22:19:54.412586",
-    "user": "nama aku?",
-    "bot": "Saya adalah Project Robot, asisten chatbot offline Anda."
-  },
-  {
-    "timestamp": "2026-02-06T22:21:10.005933",
-    "user": "Halo",
-    "bot": "Salam! Apa kabar dengan Anda?"
-  },
-  {
-    "timestamp": "2026-02-06T22:24:02.588590",
-    "user": "assalamualaikum",
-    "bot": "Salam! Apa kabar dengan Anda?"
-  },
-  {
-    "timestamp": "2026-02-06T22:24:15.590781",
-    "user": "kabar baik",
-    "bot": "Halo! Apa kabar? Nama saya Project Robot 🤖"
-  },
-  {
-    "timestamp": "2026-02-06T22:24:27.901027",
-    "user": "Kabar saya baik",
-    "bot": "Waalaikumassalam! Apa yang bisa saya bantu?"
-  },
-  {
-    "timestamp": "2026-02-06T22:24:48.142780",
-    "user": "Hari ini kamu sudah belajar apa saja?",
-    "bot": "Pendidikan sangat penting untuk kesuksesan kita 📚"
-  },
-  {
-    "timestamp": "2026-02-06T22:25:07.955561",
-    "user": "mau makan apa?",
-    "bot": "Makanan enak membuat hidup lebih berwarna! 😋"
-  },
-  {
-    "timestamp": "2026-02-06T22:25:29.832215",
-    "user": "Cuaca",
-    "bot": "Cuaca sangat mempengaruhi mood kita"
-  },
-  {
-    "timestamp": "2026-02-06T22:31:50.269383",
-    "user": "Hari ini Market sangat bagus sekali!",
-    "bot": "Itu menarik! Tapi aku belum tahu cara meresponnya. 🤔"
-  },
-  {
-    "timestamp": "2026-02-06T23:46:03.715373",
-    "user": "Kamu online?",
-    "bot": "Nama saya Project Robot, senang berkenalan dengan Anda!"
-  },
-  {
     "timestamp": "2026-02-06T23:46:10.928905",
     "user": "nama kamu siapa?",
     "bot": "Saya adalah Project Robot, asisten chatbot offline Anda."
@@ -248,5 +198,55 @@
     "timestamp": "2026-02-07T11:19:39.573996",
     "user": "Ibu?",
     "bot": "Itu menarik! Tapi aku belum tahu cara meresponnya. 🤔"
+  },
+  {
+    "timestamp": "2026-02-07T11:44:25.280789",
+    "user": "Apa itu machine learning?",
+    "bot": "Saya akan cari informasi di Wikipedia untuk Anda"
+  },
+  {
+    "timestamp": "2026-02-07T11:44:25.281902",
+    "user": "Bagaimana cara belajar programming?",
+    "bot": "Saya akan cari informasi di Wikipedia untuk Anda"
+  },
+  {
+    "timestamp": "2026-02-07T11:45:06.754025",
+    "user": "Apa pendapatmu tentang teknologi AI?",
+    "bot": "Saya sangat baik, terimakasih! Bagaimana denganmu?"
+  },
+  {
+    "timestamp": "2026-02-07T11:45:06.754025",
+    "user": "Bagaimana cara menjadi programmer yang sukses?",
+    "bot": "Saya akan cari informasi di Wikipedia untuk Anda"
+  },
+  {
+    "timestamp": "2026-02-07T11:45:06.754025",
+    "user": "Saya mau belajar Python, mulai dari mana?",
+    "bot": "Saya akan cari vocabulary tersebut untuk Anda"
+  },
+  {
+    "timestamp": "2026-02-07T11:45:06.754025",
+    "user": "Apa yang membuat kamu tertarik?",
+    "bot": "Gunakan 'lihat pattern' untuk melihat apa yang sudah aku pelajari, dan 'ajar' untuk mengajari saya yang baru!"
+  },
+  {
+    "timestamp": "2026-02-07T11:45:59.155931",
+    "user": "Apa pendapatmu tentang teknologi AI?",
+    "bot": "Kabar saya baik! Terima kasih sudah bertanya 😊"
+  },
+  {
+    "timestamp": "2026-02-07T11:45:59.155931",
+    "user": "Bagaimana cara menjadi programmer yang sukses?",
+    "bot": "Saya akan cari informasi di Wikipedia untuk Anda"
+  },
+  {
+    "timestamp": "2026-02-07T11:45:59.160277",
+    "user": "Saya mau belajar Python, mulai dari mana?",
+    "bot": "Saya akan cari vocabulary tersebut untuk Anda"
+  },
+  {
+    "timestamp": "2026-02-07T11:45:59.160695",
+    "user": "Apa yang membuat kamu tertarik?",
+    "bot": "Saya bisa diajari percakapan baru! Gunakan perintah 'ajar' untuk melatih saya."
   }
 ]

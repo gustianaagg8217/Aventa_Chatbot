@@ -91,5 +91,11 @@
     "word": "ibu",
     "definition": "Kalau ada yang nanya \"Ibu kota jawa barat?\" jawab nya \"Bandung\"",
     "examples": []
+  },
+  "apa": {
+    "source": "local",
+    "word": "apa",
+    "definition": "kah sudah terintegrasi chatgpt?",
+    "examples": []
   }
 }

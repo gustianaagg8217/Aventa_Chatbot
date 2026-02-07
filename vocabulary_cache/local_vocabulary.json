@@ -294,5 +294,13 @@
     "part_of_speech": null,
     "added_date": "2026-02-07T11:19:22.253123",
     "source": "local"
+  },
+  "apa": {
+    "word": "apa",
+    "definition": "kah sudah terintegrasi chatgpt?",
+    "examples": [],
+    "part_of_speech": null,
+    "added_date": "2026-02-07T11:47:02.276553",
+    "source": "local"
   }
 }

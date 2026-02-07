@@ -5,6 +5,7 @@ Integration module untuk menghubungkan Online Vocabulary Manager & Wikipedia den
 from robot_core import RobotBrain
 from online_vocabulary import OnlineVocabularyManager, IntegrationHelper
 from wikipedia_integration import WikipediaSearcher, QuestionAnswerer, KnowledgeBase
+from chatgpt_integration import ChatGPTFallback
 from pathlib import Path
 from datetime import datetime
 from typing import Optional
@@ -55,6 +56,9 @@ class EnhancedRobotBrain(RobotBrain):
             # Create knowledge base jika both enabled
             if enable_online_vocab:
                 self.knowledge_base = KnowledgeBase(self.vocab_manager, self.wiki_searcher)
+        
+        # Initialize ChatGPT fallback
+        self.chatgpt_fallback = ChatGPTFallback(enable=True)
     
     def _add_vocab_commands(self):
         """Tambah pattern untuk perintah vocabulary"""
@@ -297,6 +301,9 @@ class EnhancedRobotBrain(RobotBrain):
         elif "statistik vocab" in user_input.lower() or "jumlah vocab" in user_input.lower():
             return self._handle_vocab_stats()
         
+        elif "statistik chatgpt" in user_input.lower() or "stats chatgpt" in user_input.lower():
+            return self._handle_chatgpt_stats()
+        
         # Check untuk pembelajaran pola percakapan dengan quoted strings
         # Format: 'Kalau ada yang bilang "[TRIGGER]", jawab nya "[RESPONSE]"'
         try:
@@ -308,8 +315,28 @@ class EnhancedRobotBrain(RobotBrain):
         except Exception:
             pass
         
-        # Default process seperti sebelumnya
-        return super().process_input(user_input)
+        # Try base pattern matcher first
+        response = super().process_input(user_input)
+        
+        # Fallback ke ChatGPT jika base pattern matcher mengembalikan response default
+        # (Artinya tidak cocok dengan pattern lokal)
+        default_fallback_phrases = [
+            "Saya belum memahami apa yang Anda maksud",
+            "Maaf, saya tidak mengerti"
+        ]
+        
+        is_default_response = any(phrase in response for phrase in default_fallback_phrases) if response else False
+        
+        if is_default_response and self.chatgpt_fallback and self.chatgpt_fallback.enable:
+            try:
+                chatgpt_response = self.chatgpt_fallback.get_response(user_input, self.user_name)
+                if chatgpt_response:
+                    return chatgpt_response
+            except Exception:
+                pass
+        
+        return response
+
     
     def _handle_vocab_search(self, user_input: str) -> str:
         """Handle pencarian vocabulary"""
@@ -735,6 +762,27 @@ class EnhancedRobotBrain(RobotBrain):
 • Local Vocabulary: {stats['local_vocabulary']}
 • Last Updated: {stats['last_updated']}
 • Cache Size: {stats['cache_size_mb']:.2f} MB
+═════════════════════════════════════
+"""
+    
+    def _handle_chatgpt_stats(self) -> str:
+        """Handle tampilan statistik ChatGPT fallback"""
+        if not self.chatgpt_fallback:
+            return "ChatGPT fallback tidak tersedia."
+        
+        stats = self.chatgpt_fallback.get_stats()
+        
+        status = "✓ Enabled" if stats['enabled'] else "✗ Disabled"
+        api_status = "✓ Set" if stats['api_key_set'] else "✗ Not Set"
+        
+        return f"""
+🤖 CHATGPT FALLBACK STATISTICS
+═════════════════════════════════════
+• Status: {status}
+• Model: {stats['model']}
+• API Key: {api_status}
+• Conversation History: {stats['history_length']} messages
+• History File: {stats['history_file']}
 ═════════════════════════════════════
 """
     

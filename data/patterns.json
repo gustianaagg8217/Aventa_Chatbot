@@ -99,48 +99,52 @@
   },
   "vocab_search": {
     "keywords": [
-      "arti dari",
       "cari arti",
       "apa arti",
+      "arti dari",
       "cari vocab"
     ],
     "responses": [
+      "Saya akan cari vocabulary tersebut untuk Anda",
       "Saya akan cari vocabulary tersebut untuk Anda",
       "Saya akan cari vocabulary tersebut untuk Anda"
     ]
   },
   "vocab_sync": {
     "keywords": [
-      "download vocab",
       "sinkron vocab",
+      "download vocab",
       "fetch vocab",
       "update vocab"
     ],
     "responses": [
+      "Saya sedang sinkronisasi vocabulary dari online",
       "Saya sedang sinkronisasi vocabulary dari online",
       "Saya sedang sinkronisasi vocabulary dari online"
     ]
   },
   "vocab_stats": {
     "keywords": [
-      "jumlah vocab",
       "berapa vocab",
-      "statistik vocab"
+      "statistik vocab",
+      "jumlah vocab"
     ],
     "responses": [
+      "Saya akan tunjukkan statistik vocabulary",
       "Saya akan tunjukkan statistik vocabulary",
       "Saya akan tunjukkan statistik vocabulary"
     ]
   },
   "wiki_search": {
     "keywords": [
+      "wikipedia",
+      "bagaimana cara",
       "apa itu",
       "cari wikipedia",
-      "siapa itu",
-      "wikipedia",
-      "bagaimana cara"
+      "siapa itu"
     ],
     "responses": [
+      "Saya akan cari informasi di Wikipedia untuk Anda",
       "Saya akan cari informasi di Wikipedia untuk Anda",
       "Saya akan cari informasi di Wikipedia untuk Anda",
       "Saya akan cari informasi di Wikipedia untuk Anda",
@@ -151,11 +155,12 @@
   },
   "wiki_cache": {
     "keywords": [
-      "cache wikipedia",
       "cache wiki",
+      "cache wikipedia",
       "wikipedia cache"
     ],
     "responses": [
+      "Saya akan tunjukkan informasi cache Wikipedia",
       "Saya akan tunjukkan informasi cache Wikipedia",
       "Saya akan tunjukkan informasi cache Wikipedia",
       "Saya akan tunjukkan informasi cache Wikipedia",
@@ -175,16 +180,18 @@
       "Saya akan menyimpan informasi terakhir ke pelajaran lokal",
       "Saya akan menyimpan informasi terakhir ke pelajaran lokal",
       "Saya akan menyimpan informasi terakhir ke pelajaran lokal",
+      "Saya akan menyimpan informasi terakhir ke pelajaran lokal",
       "Saya akan menyimpan informasi terakhir ke pelajaran lokal"
     ]
   },
   "list_lessons": {
     "keywords": [
-      "daftar pelajaran",
       "list pelajaran",
+      "daftar pelajaran",
       "lihat pelajaran"
     ],
     "responses": [
+      "Saya akan menampilkan daftar pelajaran lokal",
       "Saya akan menampilkan daftar pelajaran lokal",
       "Saya akan menampilkan daftar pelajaran lokal",
       "Saya akan menampilkan daftar pelajaran lokal",
@@ -198,6 +205,7 @@
       "hapus pelajaran"
     ],
     "responses": [
+      "Saya akan menghapus pelajaran lokal yang dipilih",
       "Saya akan menghapus pelajaran lokal yang dipilih",
       "Saya akan menghapus pelajaran lokal yang dipilih",
       "Saya akan menghapus pelajaran lokal yang dipilih",

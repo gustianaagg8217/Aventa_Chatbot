@@ -13,11 +13,14 @@
 # Network & Online Knowledge (Vocabulary + Wikipedia)
 requests==2.31.0      # HTTP library untuk fetch online vocabulary & Wikipedia
 
+# ChatGPT Integration (Optional - untuk fallback responses)
+openai>=1.0.0         # OpenAI API client untuk ChatGPT integration
+python-dotenv>=1.0.0  # Untuk load .env configuration files
+
 # Untuk instalasi tkinter pada sistem yang membutuhkannya:
 # Windows: Sudah terinstall dengan Python
 # Linux (Ubuntu/Debian): sudo apt-get install python3-tk
 # macOS: brew install python-tk@3.x
-
 # Optional packages untuk pengembangan lebih lanjut:
 nltk==3.8.1           # Natural Language Toolkit
 spacy==3.5.0          # NLP library
