@@ -205,5 +205,78 @@
     "part_of_speech": null,
     "added_date": "2026-02-07T09:21:41.465441",
     "source": "local"
+  },
+  "jarbot": {
+    "word": "jarbot",
+    "definition": "aku ganti nama kamu yah?",
+    "examples": [],
+    "part_of_speech": null,
+    "added_date": "2026-02-07T09:27:17.621034",
+    "source": "local"
+  },
+  "no": {
+    "word": "no",
+    "definition": "nama kamu siapa?",
+    "examples": [],
+    "part_of_speech": null,
+    "added_date": "2026-02-07T09:27:48.594156",
+    "source": "local"
+  },
+  "statistik": {
+    "word": "statistik",
+    "definition": "vocab",
+    "examples": [],
+    "part_of_speech": null,
+    "added_date": "2026-02-07T09:44:51.188841",
+    "source": "local"
+  },
+  "halo": {
+    "word": "halo",
+    "definition": "siapa aku?",
+    "examples": [],
+    "part_of_speech": null,
+    "added_date": "2026-02-07T09:47:48.365138",
+    "source": "local"
+  },
+  "ubah": {
+    "word": "ubah",
+    "definition": "Budi",
+    "examples": [],
+    "part_of_speech": null,
+    "added_date": "2026-02-07T09:51:59.104866",
+    "source": "local"
+  },
+  "asslamualaikum": {
+    "word": "asslamualaikum",
+    "definition": "Assalamualaikum adalah sapaan untuk seorang muslim. Jawab nya Waalaikumsalam",
+    "examples": [],
+    "part_of_speech": null,
+    "added_date": "2026-02-07T09:57:16.337387",
+    "source": "local"
+  },
+  "saldo": {
+    "word": "saldo",
+    "definition": "Balance",
+    "examples": [],
+    "part_of_speech": null,
+    "added_date": "2026-02-07T09:58:39.295343",
+    "source": "local",
+    "wikipedia": "10 adalah keseluruhan dana yang dimiliki seseorang atau entitas lain dalam sebuah rekening. Dalam perbankan, saldo umumnya berkaitan dengan rekening giro di bank. Dalam perkembangannya, penggunaan istilah ini sering kali disebut juga saldo rekening, yang berarti jumlah dana yang ada pada akun setelah pembebanan biaya jasa penarikan, pendebitan dan pengkreditan setoran, hasil kliring penarikan cek yang dapat digunakan untuk rekonsiliasi dengan membandingkan laporan bank dengan register atau buku cek. Sementara itu, nilai saldo mengendap adalah saldo minimal yang ditentukan bank dalam suatu rekening dan tidak dapat digunakan nasabah."
+  },
+  "salso": {
+    "word": "salso",
+    "definition": "saldo",
+    "examples": [],
+    "part_of_speech": null,
+    "added_date": "2026-02-07T09:58:51.210618",
+    "source": "local"
+  },
+  "cari": {
+    "word": "cari",
+    "definition": "mencari",
+    "examples": [],
+    "part_of_speech": null,
+    "added_date": "2026-02-07T10:00:55.781104",
+    "source": "local"
   }
 }

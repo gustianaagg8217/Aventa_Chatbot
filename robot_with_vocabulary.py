@@ -113,6 +113,64 @@ class EnhancedRobotBrain(RobotBrain):
         if not user_input:
             return "Maaf, bisa tolong ulangi?"
 
+        # Precompute lowercase for common checks
+        lower = user_input.lower()
+
+        # Detect user self-introduction to remember their name
+        try:
+            name_phrases = ["nama aku", "nama saya", "saya bernama", "nama ku", "aku bernama", "namaku"]
+            for ph in name_phrases:
+                if lower.startswith(ph):
+                    # extract remainder as name
+                    raw = user_input[len(ph):].strip(' :,-')
+                    if not raw:
+                        # if nothing after phrase, try splitting last token
+                        parts = user_input.split()
+                        if len(parts) >= 2:
+                            raw = parts[-1]
+                    if raw:
+                        # Capitalize name properly (simple)
+                        saved = raw.strip().split()[0].capitalize()
+                        try:
+                            # set in base RobotBrain
+                            self.set_user_name(saved)
+                        except Exception:
+                            try:
+                                super().set_user_name(saved)
+                            except Exception:
+                                pass
+                        return f"Hai {saved}, saya adalah {self.name}, asisten chatbot offline Anda."
+        except Exception:
+            pass
+        # If base RobotBrain is in a rename flow, delegate to base to handle confirmation/new name
+        try:
+            if (
+                getattr(self, '_awaiting_new_name', False)
+                or getattr(self, '_awaiting_rename_confirmation', False)
+                or getattr(self, '_awaiting_user_new_name', False)
+                or getattr(self, '_awaiting_user_rename_confirmation', False)
+            ):
+                return super().process_input(user_input)
+        except Exception:
+            pass
+
+        # If the user requests to change their name, delegate to base RobotBrain handler
+        if any(kw in lower for kw in ("ubah namaku", "ganti namaku", "ubah nama saya", "ganti nama saya")):
+            return super().process_input(user_input)
+
+        # Quick 'siapa aku' check to avoid being caught by wiki patterns
+        if any(kw in lower for kw in ("siapa aku", "siapa saya", "siapakah aku", "siapakah saya")):
+            if self.user_name:
+                return f"Kamu adalah {self.user_name}."
+            else:
+                return "Saya belum tahu nama Anda. Kamu bisa bilang 'Nama aku Agus' untuk memperkenalkan diri."
+
+        # Personalize simple greetings if we know the user's name
+        greetings = ("halo", "hai", "hei", "pagi", "siang", "malam")
+        if any(lower.startswith(g) or f" {g} " in f" {lower} " for g in greetings):
+            if self.user_name:
+                return f"Halo {self.user_name}!"
+
         # If we are awaiting a teaching definition, capture this input as the definition
         if getattr(self, '_awaiting_teach', None):
             word = self._awaiting_teach

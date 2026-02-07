@@ -10,6 +10,7 @@ from datetime import datetime
 from pathlib import Path
 import random
 from typing import List, Dict, Tuple, Optional
+from difflib import SequenceMatcher, get_close_matches
 
 
 class PatternMatcher:
@@ -70,7 +71,30 @@ class PatternMatcher:
                     best_score = score
                     best_match = intent
         
-        return best_match if best_score > 0.3 else None
+        if best_score > 0.3:
+            return best_match
+
+        # Fallback: fuzzy match using SequenceMatcher for short inputs or single-word typos
+        try:
+            # Only run fuzzy fallback for short inputs to avoid false positives on long sentences
+            if len(text_lower.split()) <= 4:
+                best_fuzzy = None
+                best_ratio = 0.0
+                for intent, data in self.patterns.items():
+                    for keyword in data.get('keywords', []):
+                        # compare keyword vs the whole input
+                        ratio = SequenceMatcher(None, keyword.lower(), text_lower).ratio()
+                        if ratio > best_ratio:
+                            best_ratio = ratio
+                            best_fuzzy = intent
+
+                # threshold tuned to accept clear typos
+                if best_ratio >= 0.65:
+                    return best_fuzzy
+        except Exception:
+            pass
+
+        return None
     
     def get_response(self, intent: str) -> str:
         """Dapatkan response random untuk intent"""
@@ -135,6 +159,15 @@ class RobotBrain:
         self.load_config()
         self.initialize_default_patterns()
 
+        # user profile (remember conversation partner)
+        self.user_profile_file = Path(__file__).parent / 'data' / 'user_profile.json'
+        self.user_name = None
+        self.load_user_profile()
+        # user rename state
+        self._awaiting_user_new_name = False
+        self._proposed_user_name = None
+        self._awaiting_user_rename_confirmation = False
+
     def load_config(self):
         try:
             if self.config_file.exists():
@@ -150,6 +183,31 @@ class RobotBrain:
             self.config_file.parent.mkdir(exist_ok=True)
             with open(self.config_file, 'w', encoding='utf-8') as f:
                 json.dump({'name': self.name}, f, ensure_ascii=False, indent=2)
+        except Exception:
+            pass
+
+    def load_user_profile(self):
+        try:
+            if self.user_profile_file.exists():
+                with open(self.user_profile_file, 'r', encoding='utf-8') as f:
+                    data = json.load(f)
+                    if isinstance(data, dict) and data.get('user_name'):
+                        self.user_name = data.get('user_name')
+        except Exception:
+            pass
+
+    def save_user_profile(self):
+        try:
+            self.user_profile_file.parent.mkdir(exist_ok=True)
+            with open(self.user_profile_file, 'w', encoding='utf-8') as f:
+                json.dump({'user_name': self.user_name}, f, ensure_ascii=False, indent=2)
+        except Exception:
+            pass
+
+    def set_user_name(self, name: str) -> None:
+        try:
+            self.user_name = name.strip()
+            self.save_user_profile()
         except Exception:
             pass
     
@@ -248,19 +306,65 @@ class RobotBrain:
                 self._awaiting_rename_confirmation = False
                 return "OK, pembaruan nama dibatalkan."
 
-        # Detect direct rename requests
+        # Detect user rename requests (change user's name) — check before bot rename to avoid substring collisions
+        if any(kw in lower for kw in ("ubah namaku", "ganti namaku", "ubah nama saya", "ganti nama saya")):
+            self._awaiting_user_new_name = True
+            return "Oke, kamu mau ganti nama menjadi apa?"
+
+        # Detect direct rename requests for the bot
         if any(kw in lower for kw in ("ganti nama", "ganti namamu", "aku ganti nama kamu", "ubah nama")):
             # prompt for new name
             self._awaiting_new_name = True
             return "Oke, nama saya mau diganti jadi apa?"
 
+        # If we are awaiting a user new name value
+        if getattr(self, '_awaiting_user_new_name', False):
+            new_name = user_input.strip()
+            if not new_name:
+                self._awaiting_user_new_name = False
+                return "Batal mengganti nama Anda."
+            # propose and ask for confirmation
+            self._proposed_user_name = new_name
+            self._awaiting_user_new_name = False
+            self._awaiting_user_rename_confirmation = True
+            return f"Kamu ingin saya menyimpan nama kamu sebagai '{new_name}'? (yes/no)"
+
+        if getattr(self, '_awaiting_user_rename_confirmation', False):
+            ans = lower.strip()
+            if ans in ('yes', 'y', 'iya', 'ya'):
+                old = self.user_name
+                self.user_name = self._proposed_user_name or self.user_name
+                self._proposed_user_name = None
+                self._awaiting_user_rename_confirmation = False
+                try:
+                    self.save_user_profile()
+                except Exception:
+                    pass
+                return f"✓ Nama Anda berhasil disimpan sebagai '{self.user_name}'."
+            else:
+                self._proposed_user_name = None
+                self._awaiting_user_rename_confirmation = False
+                return "OK, perubahan nama dibatalkan."
+
+        # If user asks who they are, respond with stored user name
+        if any(kw in lower for kw in ("siapa aku", "siapa saya", "siapakah aku", "siapakah saya")):
+            if self.user_name:
+                return f"Kamu adalah {self.user_name}."
+            else:
+                return "Saya belum tahu nama Anda. Kamu bisa bilang 'Nama aku Agus' untuk memperkenalkan diri."
+
         # Find matching intent
         intent = self.pattern_matcher.find_intent(user_input)
-        
+
         if intent:
             # If the user asks for the bot's name, return the stored name
             if intent == 'name':
                 return f"Saya adalah {self.name}, asisten chatbot offline Anda."
+
+            # If greeting and we know user's name, personalize
+            if intent == 'greeting' and self.user_name:
+                return f"Halo {self.user_name}! Saya adalah {self.name}, senang bertemu denganmu."
+
             response = self.pattern_matcher.get_response(intent)
         else:
             response = random.choice([
