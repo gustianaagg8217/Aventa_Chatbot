@@ -28,6 +28,8 @@ class EnhancedRobotBrain(RobotBrain):
         self.knowledge_base = None
         self.enable_online_vocab = enable_online_vocab
         self.enable_wikipedia = enable_wikipedia
+        # conversation state for teaching flow
+        self._awaiting_teach = None
         
         if enable_online_vocab:
             self.vocab_manager = OnlineVocabularyManager()
@@ -85,6 +87,24 @@ class EnhancedRobotBrain(RobotBrain):
             ["cache wikipedia", "wikipedia cache", "cache wiki"],
             ["Saya akan tunjukkan informasi cache Wikipedia"]
         )
+        # Command to save the last response as a lesson
+        self.pattern_matcher.add_pattern(
+            "save_lesson",
+            ["masukan dalam pelajaran", "masukkan dalam pelajaran"],
+            ["Saya akan menyimpan informasi terakhir ke pelajaran lokal"]
+        )
+        # Commands to list and remove lessons
+        self.pattern_matcher.add_pattern(
+            "list_lessons",
+            ["daftar pelajaran", "lihat pelajaran", "list pelajaran"],
+            ["Saya akan menampilkan daftar pelajaran lokal"]
+        )
+
+        self.pattern_matcher.add_pattern(
+            "remove_lesson",
+            ["hapus pelajaran"],
+            ["Saya akan menghapus pelajaran lokal yang dipilih"]
+        )
     
     def process_input(self, user_input: str) -> str:
         """Override process_input dengan fitur vocabulary & Wikipedia"""
@@ -92,6 +112,46 @@ class EnhancedRobotBrain(RobotBrain):
         
         if not user_input:
             return "Maaf, bisa tolong ulangi?"
+
+        # If we are awaiting a teaching definition, capture this input as the definition
+        if getattr(self, '_awaiting_teach', None):
+            word = self._awaiting_teach
+            definition = user_input.strip()
+            # Try to remove leading 'word adalah/ialah' phrases
+            try:
+                lw = word.lower()
+                ld = definition.lower()
+                # remove leading word if repeated
+                if ld.startswith(lw):
+                    # remove word itself
+                    definition = definition[len(word):].strip()
+                    # remove common connectors
+                    for prefix in [":", "-", "adalah", "ialah"]:
+                        if definition.lower().startswith(prefix):
+                            definition = definition[len(prefix):].strip()
+                # final fallback trim
+                definition = definition.strip()
+                if not definition:
+                    definition = user_input.strip()
+            except Exception:
+                definition = user_input.strip()
+
+            # Save into vocabulary
+            try:
+                self.vocab_manager.add_vocabulary(word, definition)
+                # also add into knowledge base if present
+                if self.knowledge_base:
+                    self.knowledge_base.add_knowledge(word.lower().strip(), {
+                        'source': 'local',
+                        'word': word,
+                        'definition': definition,
+                        'examples': []
+                    })
+                self._awaiting_teach = None
+                return f"✓ Vocabulary '{word}' berhasil ditambahkan ke lokal cache"
+            except Exception as e:
+                self._awaiting_teach = None
+                return f"Gagal menyimpan vocabulary: {e}"
         
         # Check untuk perintah Wikipedia
         if self.enable_wikipedia:
@@ -111,6 +171,53 @@ class EnhancedRobotBrain(RobotBrain):
                 "siapa itu" in lower
             ):
                 return self._handle_wiki_search(user_input)
+
+        # If a knowledge base exists, try offline lookup for short/keyword queries
+        if self.knowledge_base:
+            try:
+                # Only attempt for short queries (1-4 words) to avoid intercepting full sentences
+                if 1 <= len(user_input.split()) <= 4:
+                    kb_resp = self.knowledge_base.get_formatted(user_input)
+                    if kb_resp:
+                        return kb_resp
+            except Exception:
+                pass
+
+        # Handle explicit lesson save command before other flows
+        if self.knowledge_base:
+            if lower in ("masukan dalam pelajaran", "masukkan dalam pelajaran", "masukan pelajaran", "simpan pelajaran"):
+                return self._handle_insert_lesson()
+
+        # If user typed a short single-word query and we have a vocab manager, offer teach flow
+        try:
+            if self.vocab_manager and 1 <= len(user_input.split()) <= 3:
+                # normalize word
+                candidate = user_input.strip().split()[0].strip().strip('?:,.').lower()
+                if candidate and candidate not in self.vocab_manager.vocabulary and candidate not in self.vocab_manager.online_vocabulary:
+                    # set awaiting state and ask user to teach
+                    self._awaiting_teach = candidate
+                    return f"Aku belum pernah belajar tentang itu. Mau mengajari saya? Ketik penjelasan untuk '{candidate}'"
+        except Exception:
+            pass
+
+        # Merge last response into a keyword: phrases like 'tambahkan informasi ini ke [kata]'
+        try:
+            lower = user_input.lower()
+            if 'tambahkan informasi ini ke ' in lower or 'tambahkan informasi ini ke dalam ' in lower or lower.startswith('tambahkan informasi ini ke') or lower.startswith('tambahkan informasi ini'):
+                return self._handle_merge_info(user_input)
+            if lower.startswith('tambahkan ini ke ') or lower.startswith('tambahkan ini ke dalam '):
+                return self._handle_merge_info(user_input)
+        except Exception:
+            pass
+
+        # Lesson management commands
+        if self.knowledge_base:
+            lower = user_input.lower()
+            if lower in ("daftar pelajaran", "lihat pelajaran", "list pelajaran"):
+                return self._handle_list_lessons()
+
+            if lower.startswith("hapus pelajaran"):
+                return self._handle_remove_lesson(user_input)
         
         # Check untuk perintah vocab khusus
         if "cari vocab" in user_input.lower() or "cari arti" in user_input.lower():
@@ -185,8 +292,246 @@ class EnhancedRobotBrain(RobotBrain):
                 response += f"   Examples:\n"
                 for ex in result.get('examples', [])[:2]:
                     response += f"      • {ex}\n"
+            # include merged wikipedia/notes if present
+            extra = result.get('wikipedia') or result.get('notes') or ''
+            if extra:
+                short_extra = extra.strip()
+                if len(short_extra) > 800:
+                    short_extra = short_extra[:800].rsplit('.', 1)[0] + '...'
+                response += f"\n   Additional info:\n   {short_extra}\n"
         
         return response
+
+    def _handle_insert_lesson(self) -> str:
+        """Save the last bot response as a lesson in the KnowledgeBase/lessons.json"""
+        if not self.knowledge_base:
+            return "Fitur pelajaran tidak tersedia. Aktifkan Wikipedia dan vocabulary terlebih dahulu."
+
+        # Get last bot response captured by the main loop
+        last = getattr(self, '_last_response', None)
+        if not last:
+            return "Tidak ada respon terakhir untuk dimasukkan ke pelajaran. Coba tanyakan sesuatu terlebih dahulu."
+
+        # Try to extract a title and content from common response formats
+        title = None
+        content = last
+        # If wiki formatted (we prefix with '📚 Title')
+        if last.startswith('📚'):
+            # first line after the icon is the title
+            try:
+                first_line = last.splitlines()[0]
+                title = first_line.lstrip('📚 ').strip()
+                # content is the rest
+                content = '\n'.join(last.splitlines()[1:]).strip()
+            except Exception:
+                title = None
+
+        # If vocab formatted (starts with '🔤 WORD') use that as title
+        if not title and last.startswith('🔤'):
+            try:
+                first_line = last.splitlines()[0]
+                title = first_line.lstrip('🔤 ').strip()
+                content = '\n'.join(last.splitlines()[1:]).strip()
+            except Exception:
+                title = None
+
+        # If still no title, prompt user to provide one interactively
+        if not title:
+            try:
+                prompt = "Response tidak memiliki judul otomatis. Masukkan judul pelajaran yang ingin disimpan (atau kosong untuk batal): "
+                user_title = input(prompt).strip()
+                if not user_title:
+                    return "Batal menyimpan pelajaran."
+                title = user_title
+            except Exception:
+                return "Response tidak memiliki judul otomatis. Mohon ulangi perintah dengan konteks atau gunakan format 'Apa itu [topik]?' sebelumnya."
+
+        # Save into knowledge base under lowercase title
+        data = {
+            'source': 'lesson',
+            'title': title,
+            'content': content,
+            'saved_at': __import__('datetime').datetime.now().isoformat()
+        }
+
+        try:
+            self.knowledge_base.add_knowledge(title.lower().strip(), data)
+            return f"✓ Berhasil menyimpan '{title}' ke pelajaran lokal."
+        except Exception as e:
+            return f"Gagal menyimpan pelajaran: {e}"
+
+    def _handle_list_lessons(self) -> str:
+        """Return a formatted list of saved lessons."""
+        if not self.knowledge_base:
+            return "Fitur pelajaran tidak tersedia."
+
+        lessons = self.knowledge_base.list_lessons()
+        if not lessons:
+            return "Belum ada pelajaran yang disimpan."
+
+        resp = "📚 DAFTAR PELAJARAN LOKAL:\n"
+        resp += "═════════════════════════════════════\n"
+        # lessons may be a dict of title -> data
+        for title in sorted(lessons.keys()):
+            # show title and a short preview
+            entry = lessons.get(title)
+            preview = ''
+            if isinstance(entry, dict):
+                preview = entry.get('title') or entry.get('word') or entry.get('content', '')
+            resp += f"- {title}: {str(preview)[:80]}\n"
+
+        return resp
+
+    def _handle_remove_lesson(self, user_input: str) -> str:
+        """Remove a lesson by title. Usage: 'hapus pelajaran [judul]'."""
+        if not self.knowledge_base:
+            return "Fitur pelajaran tidak tersedia."
+
+        parts = user_input.split(None, 2)
+        # Expected forms: 'hapus pelajaran Judul' or 'hapus pelajaran "Judul"'
+        if len(parts) < 3:
+            return "Gunakan: 'hapus pelajaran [judul]'. Contoh: hapus pelajaran Forex"
+
+        title = parts[2].strip().strip('"')
+        if not title:
+            return "Judul pelajaran kosong. Batalkan."
+
+        ok = self.knowledge_base.remove_lesson(title)
+        if ok:
+            return f"✓ Pelajaran '{title}' telah dihapus."
+        else:
+            return f"Tidak menemukan pelajaran berjudul '{title}'."
+
+    def _handle_merge_info(self, user_input: str) -> str:
+        """Merge the last bot response (e.g., a Wikipedia extract) into a vocabulary keyword.
+
+        Expected forms:
+          'tambahkan informasi ini ke forex'
+          'tambahkan informasi ini ke dalam forex'
+          'tambahkan ini ke forex'
+        """
+        # extract target keyword from the user_input
+        try:
+            lower = user_input.lower()
+            # find the ' ke ' or ' ke dalam '
+            target = None
+            if ' ke dalam ' in lower:
+                target = user_input.lower().split(' ke dalam ', 1)[1]
+            elif ' ke ' in lower:
+                target = user_input.lower().split(' ke ', 1)[1]
+            else:
+                # fallback: last token
+                parts = user_input.split()
+                if len(parts) > 1:
+                    target = parts[-1]
+
+            if not target:
+                return "Tentukan kata kunci target. Contoh: 'tambahkan informasi ini ke Forex'"
+
+            # clean target
+            target = target.strip().strip('"').strip("'").strip().strip('?:.,')
+            # if user wrote 'ke dalam forex' target may include 'dalah' typo; normalize
+            target = target.replace('dalah', '').strip()
+            if not target:
+                return "Judul target tidak ditemukan. Gunakan: 'tambahkan informasi ini ke Forex'"
+
+            key = target.lower()
+
+            last = getattr(self, '_last_response', None)
+            if not last:
+                return "Tidak ada informasi terakhir yang bisa ditambahkan. Coba lakukan pencarian Wikipedia terlebih dahulu."
+
+            # extract useful content from last response
+            content = last
+            # if it's a wiki formatted response '📚 Title\n\n<extract>\n\nSumber: ...'
+            if last.startswith('📚'):
+                lines = last.splitlines()
+                # drop first line (title) and last line if 'Sumber:' present
+                body_lines = []
+                for ln in lines[1:]:
+                    if ln.strip().lower().startswith('sumber:'):
+                        break
+                    body_lines.append(ln)
+                content = '\n'.join(body_lines).strip()
+
+            # if it's vocab formatted '🔤 WORD' use the details block
+            if last.startswith('🔤'):
+                lines = last.splitlines()
+                content = '\n'.join(lines[1:]).strip()
+
+            if not content:
+                return "Tidak menemukan konten yang dapat ditambahkan dari respon terakhir."
+
+            # Merge into vocabulary manager
+            try:
+                existing = None
+                if self.vocab_manager:
+                    existing = self.vocab_manager.vocabulary.get(key) or self.vocab_manager.online_vocabulary.get(key)
+
+                if existing:
+                    # add a wikipedia/notes field
+                    try:
+                        existing_notes = existing.get('wikipedia', '') or existing.get('notes', '')
+                        if existing_notes:
+                            merged_notes = existing_notes + '\n\n' + content
+                        else:
+                            merged_notes = content
+                        existing['wikipedia'] = merged_notes
+                        # persist change to local vocabulary if it's local
+                        if key in self.vocab_manager.vocabulary:
+                            self.vocab_manager.vocabulary[key] = existing
+                            try:
+                                self.vocab_manager._save_vocabulary()
+                            except Exception:
+                                pass
+                        else:
+                            # add to local as well
+                            self.vocab_manager.vocabulary[key] = existing
+                            try:
+                                self.vocab_manager._save_vocabulary()
+                            except Exception:
+                                pass
+                    except Exception:
+                        pass
+                else:
+                    # create a new local vocab entry with the content as definition
+                    if self.vocab_manager:
+                        try:
+                            self.vocab_manager.add_vocabulary(target, content, examples=None, part_of_speech=None)
+                        except Exception:
+                            # fallback: write directly
+                            self.vocab_manager.vocabulary[key] = {
+                                'word': target,
+                                'definition': content,
+                                'examples': [],
+                                'part_of_speech': None,
+                                'source': 'local'
+                            }
+                            try:
+                                self.vocab_manager._save_vocabulary()
+                            except Exception:
+                                pass
+
+                # update knowledge base as well
+                try:
+                    if self.knowledge_base:
+                        kb_entry = self.knowledge_base.get_knowledge(key)
+                        # If KB returned a dict, merge content into kb
+                        if isinstance(kb_entry, dict):
+                            kb_entry['notes'] = kb_entry.get('notes', '') + '\n\n' + content if kb_entry.get('notes') else content
+                            self.knowledge_base.add_knowledge(key, kb_entry)
+                        else:
+                            # simply add as lesson
+                            self.knowledge_base.add_knowledge(key, {'source': 'lesson', 'title': target, 'content': content})
+                except Exception:
+                    pass
+
+                return f"✓ Informasi berhasil ditambahkan ke '{target}'."
+            except Exception as e:
+                return f"Gagal menambahkan informasi: {e}"
+
+        except Exception:
+            return "Gagal memproses perintah penambahan informasi. Gunakan: 'tambahkan informasi ini ke Forex'"
     
     def _handle_vocab_sync(self) -> str:
         """Handle sinkronisasi vocabulary online"""
@@ -359,6 +704,11 @@ def main_with_vocabulary():
             # Normal conversation
             response = robot.process_input(user_input)
             print(f"\n🤖 Project Robot: {response}")
+            # store last bot response for lesson-saving and other context features
+            try:
+                robot._last_response = response
+            except Exception:
+                pass
         
         except KeyboardInterrupt:
             print("\n\n🤖 Project Robot: Sampai jumpa! 👋")

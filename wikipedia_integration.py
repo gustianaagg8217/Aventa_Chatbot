@@ -245,8 +245,115 @@ class KnowledgeBase:
             # Be tolerant to any unexpected structure in vocab_manager
             pass
 
+        # Preload any cached Wikipedia page extracts into knowledge
+        try:
+            if self.wiki_searcher is not None:
+                pages = getattr(self.wiki_searcher, 'cache', {}).get('pages', {})
+                for title, extract in pages.items():
+                    key = title.lower().strip()
+                    if key not in self.knowledge:
+                        self.knowledge[key] = {
+                            'source': 'wikipedia',
+                            'title': title,
+                            'extract': extract
+                        }
+        except Exception:
+            pass
+
+        # Load persisted lessons if available
+        try:
+            lessons_file = None
+            if self.wiki_searcher is not None and getattr(self.wiki_searcher, 'cache_dir', None):
+                lessons_file = Path(self.wiki_searcher.cache_dir) / 'lessons.json'
+            else:
+                lessons_file = Path('lessons.json')
+
+            if lessons_file.exists():
+                try:
+                    with open(lessons_file, 'r', encoding='utf-8') as f:
+                        lessons = json.load(f)
+                        if isinstance(lessons, dict):
+                            for k, v in lessons.items():
+                                key = k.lower().strip()
+                                if key not in self.knowledge:
+                                    self.knowledge[key] = v
+                except Exception:
+                    pass
+        except Exception:
+            pass
+
+    def get_formatted(self, topic: str):
+        """Return a nicely formatted string for a topic if present in the knowledge base.
+
+        Returns None when no knowledge is available for the given topic.
+        """
+        key = topic.lower().strip()
+        if key in self.knowledge:
+            entry = self.knowledge[key]
+            src = entry.get('source')
+            # treat lesson entries like wiki extracts
+            if src in ('wikipedia', 'lesson'):
+                title = entry.get('title', topic)
+                # support either 'extract' or 'content' fields
+                extract = entry.get('extract') or entry.get('content') or entry.get('notes') or ''
+                if extract:
+                    short = extract.strip()
+                    if len(short) > 1200:
+                        short = short[:1200].rsplit('.', 1)[0] + '.'
+                    source_url = ''
+                    if src == 'wikipedia' and self.wiki_searcher:
+                        source_url = f"https://{self.wiki_searcher.language}.wikipedia.org/wiki/{title.replace(' ', '_')}"
+                    return f"📚 {title}\n\n{short}\n\nSumber: {source_url}" if source_url else f"📚 {title}\n\n{short}"
+                else:
+                    return f"📚 {title} (tidak ada ringkasan tersimpan)"
+
+            # local vocabulary entry format
+            if src == 'local':
+                word = entry.get('word', topic)
+                resp = f"🔤 {word.upper()}\n"
+                resp += f"   Definition: {entry.get('definition', 'N/A')}\n"
+                if entry.get('examples'):
+                    resp += "   Examples:\n"
+                    for ex in entry.get('examples', [])[:2]:
+                        resp += f"      • {ex}\n"
+                # include any merged notes or wikipedia content
+                notes = entry.get('notes') or entry.get('wikipedia') or ''
+                if notes:
+                    short_notes = notes.strip()
+                    if len(short_notes) > 800:
+                        short_notes = short_notes[:800].rsplit('.', 1)[0] + '...'
+                    resp += f"\n   Additional info:\n   {short_notes}\n"
+                return resp
+
+        return None
+
     def add_knowledge(self, topic, data):
         self.knowledge[topic] = data
+        # Persist lessons to a simple lessons.json alongside wiki cache if possible
+        try:
+            lessons_file = None
+            if hasattr(self, 'wiki_searcher') and getattr(self.wiki_searcher, 'cache_dir', None):
+                lessons_file = Path(self.wiki_searcher.cache_dir) / 'lessons.json'
+            else:
+                lessons_file = Path('lessons.json')
+
+            # Load existing lessons
+            existing = {}
+            if lessons_file.exists():
+                try:
+                    with open(lessons_file, 'r', encoding='utf-8') as f:
+                        existing = json.load(f)
+                except Exception:
+                    existing = {}
+
+            existing[topic] = data
+            try:
+                with open(lessons_file, 'w', encoding='utf-8') as f:
+                    json.dump(existing, f, ensure_ascii=False, indent=2)
+            except Exception:
+                pass
+        except Exception:
+            pass
 
     def get_knowledge(self, topic):
         key = topic.lower().strip()
@@ -268,6 +375,65 @@ class KnowledgeBase:
                 pass
 
         return 'No knowledge available on that topic.'
+
+    def list_lessons(self):
+        """Return a dict of saved lessons (title -> data)."""
+        try:
+            lessons_file = None
+            if self.wiki_searcher is not None and getattr(self.wiki_searcher, 'cache_dir', None):
+                lessons_file = Path(self.wiki_searcher.cache_dir) / 'lessons.json'
+            else:
+                lessons_file = Path('lessons.json')
+
+            if lessons_file.exists():
+                with open(lessons_file, 'r', encoding='utf-8') as f:
+                    data = json.load(f)
+                    if isinstance(data, dict):
+                        return data
+            # Fallback: return lessons known in memory
+            lessons = {k: v for k, v in self.knowledge.items() if v.get('source') in ('lesson', 'wikipedia', 'local')}
+            return lessons
+        except Exception:
+            return {}
+
+    def remove_lesson(self, title: str) -> bool:
+        """Remove a saved lesson by title; returns True if removed."""
+        try:
+            lessons_file = None
+            if self.wiki_searcher is not None and getattr(self.wiki_searcher, 'cache_dir', None):
+                lessons_file = Path(self.wiki_searcher.cache_dir) / 'lessons.json'
+            else:
+                lessons_file = Path('lessons.json')
+
+            if lessons_file.exists():
+                try:
+                    with open(lessons_file, 'r', encoding='utf-8') as f:
+                        data = json.load(f)
+                except Exception:
+                    data = {}
+
+                key = title.lower().strip()
+                # Try exact key removal
+                if key in data:
+                    data.pop(key, None)
+                    try:
+                        with open(lessons_file, 'w', encoding='utf-8') as f:
+                            json.dump(data, f, ensure_ascii=False, indent=2)
+                    except Exception:
+                        pass
+                    # also remove from in-memory knowledge
+                    self.knowledge.pop(key, None)
+                    return True
+
+            # fallback: try removing from in-memory knowledge
+            k = title.lower().strip()
+            if k in self.knowledge:
+                self.knowledge.pop(k, None)
+                return True
+
+            return False
+        except Exception:
+            return False
 
 # Example usage
 if __name__ == '__main__':

@@ -127,7 +127,31 @@ class RobotBrain:
         self.pattern_matcher = PatternMatcher()
         self.memory = ConversationMemory()
         self.name = "Project Robot"
+        # configuration persistence
+        self.config_file = Path(__file__).parent / 'data' / 'config.json'
+        self._awaiting_new_name = False
+        self._rename_proposed = None
+        self._awaiting_rename_confirmation = False
+        self.load_config()
         self.initialize_default_patterns()
+
+    def load_config(self):
+        try:
+            if self.config_file.exists():
+                with open(self.config_file, 'r', encoding='utf-8') as f:
+                    data = json.load(f)
+                    if isinstance(data, dict) and data.get('name'):
+                        self.name = data.get('name')
+        except Exception:
+            pass
+
+    def save_config(self):
+        try:
+            self.config_file.parent.mkdir(exist_ok=True)
+            with open(self.config_file, 'w', encoding='utf-8') as f:
+                json.dump({'name': self.name}, f, ensure_ascii=False, indent=2)
+        except Exception:
+            pass
     
     def initialize_default_patterns(self):
         """Inisialisasi pattern default"""
@@ -191,10 +215,52 @@ class RobotBrain:
         if not user_input:
             return "Maaf, bisa tolong ulangi?"
         
+        # Handle rename flow first if awaiting
+        lower = user_input.lower()
+        # If we are awaiting a new name value
+        if getattr(self, '_awaiting_new_name', False):
+            new_name = user_input.strip()
+            if not new_name:
+                self._awaiting_new_name = False
+                return "Batal mengganti nama."
+            # propose and ask for confirmation
+            self._rename_proposed = new_name
+            self._awaiting_new_name = False
+            self._awaiting_rename_confirmation = True
+            return f"Kamu ingin mengganti nama saya menjadi '{new_name}'? (yes/no)"
+
+        # If awaiting confirmation
+        if getattr(self, '_awaiting_rename_confirmation', False):
+            ans = lower.strip()
+            if ans in ('yes', 'y', 'iya', 'ya'):
+                old = self.name
+                self.name = self._rename_proposed or self.name
+                self._rename_proposed = None
+                self._awaiting_rename_confirmation = False
+                try:
+                    self.save_config()
+                except Exception:
+                    pass
+                return f"✓ Nama saya berhasil diganti dari '{old}' menjadi '{self.name}'."
+            else:
+                # cancel
+                self._rename_proposed = None
+                self._awaiting_rename_confirmation = False
+                return "OK, pembaruan nama dibatalkan."
+
+        # Detect direct rename requests
+        if any(kw in lower for kw in ("ganti nama", "ganti namamu", "aku ganti nama kamu", "ubah nama")):
+            # prompt for new name
+            self._awaiting_new_name = True
+            return "Oke, nama saya mau diganti jadi apa?"
+
         # Find matching intent
         intent = self.pattern_matcher.find_intent(user_input)
         
         if intent:
+            # If the user asks for the bot's name, return the stored name
+            if intent == 'name':
+                return f"Saya adalah {self.name}, asisten chatbot offline Anda."
             response = self.pattern_matcher.get_response(intent)
         else:
             response = random.choice([

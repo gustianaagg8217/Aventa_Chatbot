@@ -209,12 +209,25 @@
   },
   "vocab_search": {
     "keywords": [
-      "cari vocab",
       "apa arti",
       "cari arti",
+      "cari vocab",
       "arti dari"
     ],
     "responses": [
+      "Saya akan cari vocabulary tersebut untuk Anda",
+      "Saya akan cari vocabulary tersebut untuk Anda",
+      "Saya akan cari vocabulary tersebut untuk Anda",
+      "Saya akan cari vocabulary tersebut untuk Anda",
+      "Saya akan cari vocabulary tersebut untuk Anda",
+      "Saya akan cari vocabulary tersebut untuk Anda",
+      "Saya akan cari vocabulary tersebut untuk Anda",
+      "Saya akan cari vocabulary tersebut untuk Anda",
+      "Saya akan cari vocabulary tersebut untuk Anda",
+      "Saya akan cari vocabulary tersebut untuk Anda",
+      "Saya akan cari vocabulary tersebut untuk Anda",
+      "Saya akan cari vocabulary tersebut untuk Anda",
+      "Saya akan cari vocabulary tersebut untuk Anda",
       "Saya akan cari vocabulary tersebut untuk Anda",
       "Saya akan cari vocabulary tersebut untuk Anda",
       "Saya akan cari vocabulary tersebut untuk Anda",
@@ -233,12 +246,25 @@
   },
   "vocab_sync": {
     "keywords": [
-      "sinkron vocab",
-      "fetch vocab",
+      "update vocab",
       "download vocab",
-      "update vocab"
+      "sinkron vocab",
+      "fetch vocab"
     ],
     "responses": [
+      "Saya sedang sinkronisasi vocabulary dari online",
+      "Saya sedang sinkronisasi vocabulary dari online",
+      "Saya sedang sinkronisasi vocabulary dari online",
+      "Saya sedang sinkronisasi vocabulary dari online",
+      "Saya sedang sinkronisasi vocabulary dari online",
+      "Saya sedang sinkronisasi vocabulary dari online",
+      "Saya sedang sinkronisasi vocabulary dari online",
+      "Saya sedang sinkronisasi vocabulary dari online",
+      "Saya sedang sinkronisasi vocabulary dari online",
+      "Saya sedang sinkronisasi vocabulary dari online",
+      "Saya sedang sinkronisasi vocabulary dari online",
+      "Saya sedang sinkronisasi vocabulary dari online",
+      "Saya sedang sinkronisasi vocabulary dari online",
       "Saya sedang sinkronisasi vocabulary dari online",
       "Saya sedang sinkronisasi vocabulary dari online",
       "Saya sedang sinkronisasi vocabulary dari online",
@@ -275,18 +301,44 @@
       "Saya akan tunjukkan statistik vocabulary",
       "Saya akan tunjukkan statistik vocabulary",
       "Saya akan tunjukkan statistik vocabulary",
+      "Saya akan tunjukkan statistik vocabulary",
+      "Saya akan tunjukkan statistik vocabulary",
+      "Saya akan tunjukkan statistik vocabulary",
+      "Saya akan tunjukkan statistik vocabulary",
+      "Saya akan tunjukkan statistik vocabulary",
+      "Saya akan tunjukkan statistik vocabulary",
+      "Saya akan tunjukkan statistik vocabulary",
+      "Saya akan tunjukkan statistik vocabulary",
+      "Saya akan tunjukkan statistik vocabulary",
+      "Saya akan tunjukkan statistik vocabulary",
+      "Saya akan tunjukkan statistik vocabulary",
+      "Saya akan tunjukkan statistik vocabulary",
+      "Saya akan tunjukkan statistik vocabulary",
       "Saya akan tunjukkan statistik vocabulary"
     ]
   },
   "wiki_search": {
     "keywords": [
-      "apa itu",
+      "bagaimana cara",
       "cari wikipedia",
       "wikipedia",
-      "bagaimana cara",
+      "apa itu",
       "siapa itu"
     ],
     "responses": [
+      "Saya akan cari informasi di Wikipedia untuk Anda",
+      "Saya akan cari informasi di Wikipedia untuk Anda",
+      "Saya akan cari informasi di Wikipedia untuk Anda",
+      "Saya akan cari informasi di Wikipedia untuk Anda",
+      "Saya akan cari informasi di Wikipedia untuk Anda",
+      "Saya akan cari informasi di Wikipedia untuk Anda",
+      "Saya akan cari informasi di Wikipedia untuk Anda",
+      "Saya akan cari informasi di Wikipedia untuk Anda",
+      "Saya akan cari informasi di Wikipedia untuk Anda",
+      "Saya akan cari informasi di Wikipedia untuk Anda",
+      "Saya akan cari informasi di Wikipedia untuk Anda",
+      "Saya akan cari informasi di Wikipedia untuk Anda",
+      "Saya akan cari informasi di Wikipedia untuk Anda",
       "Saya akan cari informasi di Wikipedia untuk Anda",
       "Saya akan cari informasi di Wikipedia untuk Anda",
       "Saya akan cari informasi di Wikipedia untuk Anda",
@@ -304,9 +356,9 @@
   },
   "wiki_cache": {
     "keywords": [
+      "cache wikipedia",
       "wikipedia cache",
-      "cache wiki",
-      "cache wikipedia"
+      "cache wiki"
     ],
     "responses": [
       "Saya akan tunjukkan informasi cache Wikipedia",
@@ -321,7 +373,67 @@
       "Saya akan tunjukkan informasi cache Wikipedia",
       "Saya akan tunjukkan informasi cache Wikipedia",
       "Saya akan tunjukkan informasi cache Wikipedia",
+      "Saya akan tunjukkan informasi cache Wikipedia",
+      "Saya akan tunjukkan informasi cache Wikipedia",
+      "Saya akan tunjukkan informasi cache Wikipedia",
+      "Saya akan tunjukkan informasi cache Wikipedia",
+      "Saya akan tunjukkan informasi cache Wikipedia",
+      "Saya akan tunjukkan informasi cache Wikipedia",
+      "Saya akan tunjukkan informasi cache Wikipedia",
+      "Saya akan tunjukkan informasi cache Wikipedia",
+      "Saya akan tunjukkan informasi cache Wikipedia",
+      "Saya akan tunjukkan informasi cache Wikipedia",
+      "Saya akan tunjukkan informasi cache Wikipedia",
+      "Saya akan tunjukkan informasi cache Wikipedia",
+      "Saya akan tunjukkan informasi cache Wikipedia",
       "Saya akan tunjukkan informasi cache Wikipedia"
+    ]
+  },
+  "save_lesson": {
+    "keywords": [
+      "masukkan dalam pelajaran",
+      "masukan dalam pelajaran"
+    ],
+    "responses": [
+      "Saya akan menyimpan informasi terakhir ke pelajaran lokal",
+      "Saya akan menyimpan informasi terakhir ke pelajaran lokal",
+      "Saya akan menyimpan informasi terakhir ke pelajaran lokal",
+      "Saya akan menyimpan informasi terakhir ke pelajaran lokal",
+      "Saya akan menyimpan informasi terakhir ke pelajaran lokal",
+      "Saya akan menyimpan informasi terakhir ke pelajaran lokal",
+      "Saya akan menyimpan informasi terakhir ke pelajaran lokal",
+      "Saya akan menyimpan informasi terakhir ke pelajaran lokal",
+      "Saya akan menyimpan informasi terakhir ke pelajaran lokal"
+    ]
+  },
+  "list_lessons": {
+    "keywords": [
+      "daftar pelajaran",
+      "lihat pelajaran",
+      "list pelajaran"
+    ],
+    "responses": [
+      "Saya akan menampilkan daftar pelajaran lokal",
+      "Saya akan menampilkan daftar pelajaran lokal",
+      "Saya akan menampilkan daftar pelajaran lokal",
+      "Saya akan menampilkan daftar pelajaran lokal",
+      "Saya akan menampilkan daftar pelajaran lokal",
+      "Saya akan menampilkan daftar pelajaran lokal",
+      "Saya akan menampilkan daftar pelajaran lokal"
+    ]
+  },
+  "remove_lesson": {
+    "keywords": [
+      "hapus pelajaran"
+    ],
+    "responses": [
+      "Saya akan menghapus pelajaran lokal yang dipilih",
+      "Saya akan menghapus pelajaran lokal yang dipilih",
+      "Saya akan menghapus pelajaran lokal yang dipilih",
+      "Saya akan menghapus pelajaran lokal yang dipilih",
+      "Saya akan menghapus pelajaran lokal yang dipilih",
+      "Saya akan menghapus pelajaran lokal yang dipilih",
+      "Saya akan menghapus pelajaran lokal yang dipilih"
     ]
   }
 }

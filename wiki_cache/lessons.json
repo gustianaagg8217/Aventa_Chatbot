@@ -1,0 +1,22 @@
+{
+  "bitcoin": {
+    "source": "lesson",
+    "title": "Bitcoin",
+    "content": "Bitcoin adalah sebuah uang elektronik yang dibuat pada tahun 2009 oleh Satoshi Nakamoto. Nama tersebut juga dikaitkan dengan perangkat lunak sumber terbuka yang dia rancang, dan juga menggunakan jaringan peer-to-peer tanpa penyimpanan terpusat atau administrator tunggal di mana Departemen Keuangan Amerika Serikat menyebut bitcoin sebuah mata uang yang terdesentralisasi. Tidak seperti mata uang pada umumnya, bitcoin tidak tergantung dengan memercayai penerbit utama. Bitcoin menggunakan sebuah database yang didistribusikan dan menyebar ke node-node dari sebuah jaringan P2P ke jurnal transaksi, dan menggunakan kriptografi untuk menyediakan fungsi-fungsi keamanan dasar, seperti memastikan bahwa bitcoin-bitcoin hanya dapat dihabiskan oleh orang memilikinya, dan tidak pernah boleh dilakukan lebih dari satu kali.\nDesain dari Bitcoin memperbolehkan untuk kepemilikan tanpa identitas (Satoshi Nakamoto21) dan pemindahan kekayaan.\n\nSumber: https://id.wikipedia.org/wiki/Bitcoin",
+    "saved_at": "2026-02-07T09:06:53.866005"
+  },
+  "forex": {
+    "source": "local",
+    "word": "forex",
+    "definition": "singkatan dari Foreign Echange",
+    "examples": [],
+    "part_of_speech": null,
+    "notes": "Pasar valuta asing atau juga disingkat valas (bahasa Inggris: foreign exchange market, forex) adalah suatu jenis perdagangan atau transaksi yang memperdagangkan mata uang suatu negara terhadap mata uang negara lainnya (pasangan mata uang/currency pair) yang melibatkan pasar-pasar uang utama di dunia selama 24 jam secara berkesinambungan.\nPergerakan pasar valuta asing berputar mulai dari pasar Selandia Baru dan Australia yang berlangsung pukul 05.00–14.00 WIB, lalu berlanjut ke pasar Asia yaitu Jepang, Singapura, dan Hongkong yang berlangsung pukul 07.00–16.00 WIB, ke pasar Eropa yaitu Jerman dan Inggris yang berlangsung pukul 13.00–22.00 WIB, sampai ke pasar Amerika Serikat yang berlangsung pukul 17.00–05.00 WIB. Dalam perkembangan sejarahnya, bank sentral milik negara-negara dengan cadangan mata uang asing yang terbesar sekalipun dapat dikalahkan oleh kekuatan pasar valuta asing yang bebas.\nMenurut survei BIS (Bank International for Settlement, bank sentral dunia), yang dilakukan pada akhir tahun 2004, nilai transaksi pasar valuta asing mencapai lebih dari USD$1,4 triliun per harinya."
+  },
+  "nama": {
+    "source": "local",
+    "word": "nama",
+    "definition": "Tambahkan ke pelajaran",
+    "examples": []
+  }
+}

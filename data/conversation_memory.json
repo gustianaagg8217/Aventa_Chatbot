@@ -1,95 +1,5 @@
 [
   {
-    "timestamp": "2026-02-06T19:25:24.239054",
-    "user": "Hari ini market sangat bagus",
-    "bot": "Hmm, aku belum paham maksudmu. Bisa jelaskan lebih lanjut?"
-  },
-  {
-    "timestamp": "2026-02-06T19:26:15.728858",
-    "user": "Maksudnya Pasar trading sedang bagus. Trading adalah salah stau kegiatan investasi keuangan",
-    "bot": "Aku belum pernah belajar tentang itu. Mau mengajari saya?"
-  },
-  {
-    "timestamp": "2026-02-06T19:26:22.976413",
-    "user": "boleh",
-    "bot": "Maaf, aku masih belajar. Coba ajari saya dengan perintah 'ajar'!"
-  },
-  {
-    "timestamp": "2026-02-06T22:03:23.326170",
-    "user": "Halo",
-    "bot": "Salam! Apa kabar dengan Anda?"
-  },
-  {
-    "timestamp": "2026-02-06T22:03:28.415855",
-    "user": "Halo",
-    "bot": "Hai! Senang bertemu denganmu!"
-  },
-  {
-    "timestamp": "2026-02-06T22:03:28.417858",
-    "user": "Siapa nama kamu",
-    "bot": "Project Robot adalah nama saya. Apa nama Anda?"
-  },
-  {
-    "timestamp": "2026-02-06T22:09:34.386941",
-    "user": "Halo",
-    "bot": "Halo! Apa kabar? Nama saya Project Robot 🤖"
-  },
-  {
-    "timestamp": "2026-02-06T22:11:21.613489",
-    "user": "lihat patern",
-    "bot": "Hmm, aku belum paham maksudmu. Bisa jelaskan lebih lanjut?"
-  },
-  {
-    "timestamp": "2026-02-06T22:12:38.002790",
-    "user": "Aku suka makanan!",
-    "bot": "Makanan adalah kebutuhan penting! Apa yang kamu makan hari ini?"
-  },
-  {
-    "timestamp": "2026-02-06T22:12:53.737823",
-    "user": "Hari ini Market sangat bagus sekali!",
-    "bot": "Maaf, aku masih belajar. Coba ajari saya dengan perintah 'ajar'!"
-  },
-  {
-    "timestamp": "2026-02-06T22:13:38.393079",
-    "user": "Aku suka makanan!",
-    "bot": "Lapar ya? Makanan apa yang kamu inginkan?"
-  },
-  {
-    "timestamp": "2026-02-06T22:13:51.853248",
-    "user": "Nasi goreng",
-    "bot": "Maaf, aku masih belajar. Coba ajari saya dengan perintah 'ajar'!"
-  },
-  {
-    "timestamp": "2026-02-06T22:16:07.029934",
-    "user": "Olahraga itu menyehatkan!",
-    "bot": "Olahraga itu menyehatkan! Olahraga favorit kamu apa?"
-  },
-  {
-    "timestamp": "2026-02-06T22:16:39.152960",
-    "user": "Badminton",
-    "bot": "Kesehatan adalah prioritas! Kamu aktif berolahraga? 💪"
-  },
-  {
-    "timestamp": "2026-02-06T22:16:50.127284",
-    "user": "Iya lumayan",
-    "bot": "Hmm, aku belum paham maksudmu. Bisa jelaskan lebih lanjut?"
-  },
-  {
-    "timestamp": "2026-02-06T22:17:16.854640",
-    "user": "maksudnya kalau Lumayan itu artinya tidak terlalu",
-    "bot": "Aku belum pernah belajar tentang itu. Mau mengajari saya?"
-  },
-  {
-    "timestamp": "2026-02-06T22:17:24.468176",
-    "user": "Iya",
-    "bot": "Aku belum pernah belajar tentang itu. Mau mengajari saya?"
-  },
-  {
-    "timestamp": "2026-02-06T22:17:30.175826",
-    "user": "mau",
-    "bot": "Aku belum pernah belajar tentang itu. Mau mengajari saya?"
-  },
-  {
     "timestamp": "2026-02-06T22:17:33.197635",
     "user": "mau",
     "bot": "Aku belum pernah belajar tentang itu. Mau mengajari saya?"
@@ -233,5 +143,110 @@
     "timestamp": "2026-02-07T08:42:35.338628",
     "user": "Nichola Tesla",
     "bot": "Maaf, aku masih belajar. Coba ajari saya dengan perintah 'ajar'!"
+  },
+  {
+    "timestamp": "2026-02-07T08:51:08.192504",
+    "user": "Forex",
+    "bot": "Hmm, aku belum paham maksudmu. Bisa jelaskan lebih lanjut?"
+  },
+  {
+    "timestamp": "2026-02-07T08:52:18.474238",
+    "user": "forex",
+    "bot": "Itu menarik! Tapi aku belum tahu cara meresponnya. 🤔"
+  },
+  {
+    "timestamp": "2026-02-07T08:52:43.463718",
+    "user": "Forex",
+    "bot": "Maaf, aku masih belajar. Coba ajari saya dengan perintah 'ajar'!"
+  },
+  {
+    "timestamp": "2026-02-07T08:53:05.795364",
+    "user": "Forex",
+    "bot": "Maaf, aku masih belajar. Coba ajari saya dengan perintah 'ajar'!"
+  },
+  {
+    "timestamp": "2026-02-07T08:56:30.654930",
+    "user": "Merek dagang Foom",
+    "bot": "Itu menarik! Tapi aku belum tahu cara meresponnya. 🤔"
+  },
+  {
+    "timestamp": "2026-02-07T08:56:57.108324",
+    "user": "Foom",
+    "bot": "Maaf, aku masih belajar. Coba ajari saya dengan perintah 'ajar'!"
+  },
+  {
+    "timestamp": "2026-02-07T08:58:10.007747",
+    "user": "Forex",
+    "bot": "Aku belum pernah belajar tentang itu. Mau mengajari saya?"
+  },
+  {
+    "timestamp": "2026-02-07T08:58:21.069075",
+    "user": "Forex",
+    "bot": "Itu menarik! Tapi aku belum tahu cara meresponnya. 🤔"
+  },
+  {
+    "timestamp": "2026-02-07T08:59:53.010496",
+    "user": "Floating Loss",
+    "bot": "Lumayan Profit nih! Sudah waktunya Withdraw dong"
+  },
+  {
+    "timestamp": "2026-02-07T09:00:52.956855",
+    "user": "masukan dalam pelajaran",
+    "bot": "Belajar bisa jadi menyenangkan jika kita semangat!"
+  },
+  {
+    "timestamp": "2026-02-07T09:01:11.298743",
+    "user": "Floating Loss",
+    "bot": "Hari ini Market sangat bagus sekali! Profit berapa hari ini?"
+  },
+  {
+    "timestamp": "2026-02-07T09:02:19.016635",
+    "user": "masukan dalam pelajaran",
+    "bot": "Belajar itu investasi masa depan! Apa yang sedang kamu pelajari?"
+  },
+  {
+    "timestamp": "2026-02-07T09:03:34.205069",
+    "user": "Forex",
+    "bot": "Aku belum pernah belajar tentang itu. Mau mengajari saya?"
+  },
+  {
+    "timestamp": "2026-02-07T09:04:07.185067",
+    "user": "Forex adalah singkatan dari Foreign Exchange",
+    "bot": "Saya akan cari vocabulary tersebut untuk Anda"
+  },
+  {
+    "timestamp": "2026-02-07T09:04:26.636889",
+    "user": "Forex",
+    "bot": "Aku belum pernah belajar tentang itu. Mau mengajari saya?"
+  },
+  {
+    "timestamp": "2026-02-07T09:07:03.738352",
+    "user": "bitcoin",
+    "bot": "Aku belum pernah belajar tentang itu. Mau mengajari saya?"
+  },
+  {
+    "timestamp": "2026-02-07T09:07:39.339195",
+    "user": "Bitcoin",
+    "bot": "Maaf, aku masih belajar. Coba ajari saya dengan perintah 'ajar'!"
+  },
+  {
+    "timestamp": "2026-02-07T09:14:43.483809",
+    "user": "tambahkan informasi ini ke dalah forex",
+    "bot": "Aku belum pernah belajar tentang itu. Mau mengajari saya?"
+  },
+  {
+    "timestamp": "2026-02-07T09:21:47.737057",
+    "user": "nama aku agus",
+    "bot": "Aku dipanggil Project Robot! Ada yang bisa dibantu?"
+  },
+  {
+    "timestamp": "2026-02-07T09:22:39.362927",
+    "user": "nama kamu siapa?",
+    "bot": "Saya adalah Project Robot, asisten chatbot offline Anda."
+  },
+  {
+    "timestamp": "2026-02-07T09:22:54.552001",
+    "user": "aku ganti nama kamu yah?",
+    "bot": "Saya adalah Project Robot, asisten chatbot offline Anda."
   }
 ]

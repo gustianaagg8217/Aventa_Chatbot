@@ -188,5 +188,22 @@
     ],
     "part_of_speech": "noun",
     "source": "builtin"
+  },
+  "forex": {
+    "word": "forex",
+    "definition": "singkatan dari Foreign Echange",
+    "examples": [],
+    "part_of_speech": null,
+    "added_date": "2026-02-07T09:10:59.609394",
+    "source": "local",
+    "wikipedia": "Pasar valuta asing atau juga disingkat valas (bahasa Inggris: foreign exchange market, forex) adalah suatu jenis perdagangan atau transaksi yang memperdagangkan mata uang suatu negara terhadap mata uang negara lainnya (pasangan mata uang/currency pair) yang melibatkan pasar-pasar uang utama di dunia selama 24 jam secara berkesinambungan.\nPergerakan pasar valuta asing berputar mulai dari pasar Selandia Baru dan Australia yang berlangsung pukul 05.00–14.00 WIB, lalu berlanjut ke pasar Asia yaitu Jepang, Singapura, dan Hongkong yang berlangsung pukul 07.00–16.00 WIB, ke pasar Eropa yaitu Jerman dan Inggris yang berlangsung pukul 13.00–22.00 WIB, sampai ke pasar Amerika Serikat yang berlangsung pukul 17.00–05.00 WIB. Dalam perkembangan sejarahnya, bank sentral milik negara-negara dengan cadangan mata uang asing yang terbesar sekalipun dapat dikalahkan oleh kekuatan pasar valuta asing yang bebas.\nMenurut survei BIS (Bank International for Settlement, bank sentral dunia), yang dilakukan pada akhir tahun 2004, nilai transaksi pasar valuta asing mencapai lebih dari USD$1,4 triliun per harinya.\n\nPasar valuta asing atau juga disingkat valas (bahasa Inggris: foreign exchange market, forex) adalah suatu jenis perdagangan atau transaksi yang memperdagangkan mata uang suatu negara terhadap mata uang negara lainnya (pasangan mata uang/currency pair) yang melibatkan pasar-pasar uang utama di dunia selama 24 jam secara berkesinambungan.\nPergerakan pasar valuta asing berputar mulai dari pasar Selandia Baru dan Australia yang berlangsung pukul 05.00–14.00 WIB, lalu berlanjut ke pasar Asia yaitu Jepang, Singapura, dan Hongkong yang berlangsung pukul 07.00–16.00 WIB, ke pasar Eropa yaitu Jerman dan Inggris yang berlangsung pukul 13.00–22.00 WIB, sampai ke pasar Amerika Serikat yang berlangsung pukul 17.00–05.00 WIB. Dalam perkembangan sejarahnya, bank sentral milik negara-negara dengan cadangan mata uang asing yang terbesar sekalipun dapat dikalahkan oleh kekuatan pasar valuta asing yang bebas.\nMenurut survei BIS (Bank International for Settlement, bank sentral dunia), yang dilakukan pada akhir tahun 2004, nilai transaksi pasar valuta asing mencapai lebih dari USD$1,4 triliun per harinya."
+  },
+  "nama": {
+    "word": "nama",
+    "definition": "Tambahkan ke pelajaran",
+    "examples": [],
+    "part_of_speech": null,
+    "added_date": "2026-02-07T09:21:41.465441",
+    "source": "local"
   }
 }
